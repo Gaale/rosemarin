@@ -16,6 +16,10 @@ const Recipe = sequelize.define('Recipe', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    img_data: {
+        type: DataTypes.BLOB('long'),
+        allowNull: true
+    },
     img_alt_text: {
         type: DataTypes.STRING,
         allowNull: true

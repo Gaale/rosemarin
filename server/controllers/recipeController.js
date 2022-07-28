@@ -8,6 +8,7 @@ const createRecipe = async (req, res) => {
     try {
         const ingredients = req.body.ingredients;
         const instructions = req.body.instructions;
+        console.log(req.session.sid);
         const newRecipe = await Recipe.create({
             title: req.body.title,
             description: req.body.description,
@@ -16,8 +17,7 @@ const createRecipe = async (req, res) => {
             img_alt_text: req.body.img_alt_text,
             total_time: req.body.total_time,
             id_tasty: req.body.id_tasty,
-            // todo add here user id from session
-            UserId: 1
+            UserId: req.session.sid
         });
 
         ingredients.map(ingredient => {
@@ -59,8 +59,7 @@ const updateRecipe = async (req, res) => {
             img_alt_text: req.body.img_alt_text,
             total_time: req.body.total_time,
             id_tasty: req.body.id_tasty,
-            // todo add here user id from session
-            UserId: 1
+            UserId: req.session.sid
         });
 
         ingredients.map(ingredient => {
@@ -102,8 +101,7 @@ const removeRecipe = async (req, res) => {
 
 const getAllRecipes = async (req, res) => {
     try {
-        // todo add here user id from session
-        const userId = 1;
+        const userId = req.session.sid;
         const allRecipes = await Recipe.findAll({where: {UserId: userId}, include: ["Instructions", "Ingredients"]});
         res.status(200).send(allRecipes);
     } catch (err) {

@@ -6,8 +6,7 @@ const addItem = async (req, res) => {
             name: req.body.name,
             unit: req.body.unit,
             quantity: req.body.quantity,
-            // todo add here user id from session
-            UserId: 1
+            UserId: req.session.sid
         });
         res.status(201).send({"message": "Item has been successfully added"});
     } catch (err) {
@@ -15,7 +14,6 @@ const addItem = async (req, res) => {
         res.status(500).send({"message": "Due to error item has not been added"});
     }
 }
-
 
 const updateItem = async (req, res) => {
     try {
@@ -26,7 +24,7 @@ const updateItem = async (req, res) => {
             unit: req.body.unit,
             quantity: req.body.quantity,
             // todo add here user id from session
-            UserId: 1
+            UserId: req.session.sid
         });
         res.status(200).send({"message": "Item has been successfully updated"});
     } catch (err) {
@@ -48,8 +46,7 @@ const removeItem = async (req, res) => {
 
 const getAllItems = async (req, res) => {
     try {
-        // todo add here user id from session
-        const userId = 1;
+        const userId = req.session.sid;
         const allItems = await ShoppingListItem.findAll({where: {UserId: userId}});
         res.status(200).send(allItems);
     } catch (err) {

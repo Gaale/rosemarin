@@ -4,8 +4,12 @@ const sequelize = require('./models')
 const Router = require("./router.js");
 const app = express();
 const corsOptions = {
-    origin: "http://localhost:3000"
-}
+    origin: 'http://localhost:3000',
+    credentials: true
+};
+const session = require('express-session');
+const maxAge = parseInt(process.env.MAX_AGE) || 3600000;
+const secret = process.env.SESSION_SECRET || 'secret123';
 const PORT = 3001;
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -15,6 +19,18 @@ app.use(
         createParentPath: true,
     }),
 );
+
+app.use(session({
+    path: '/',
+    secret: secret,
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        httpOnly: true,
+        maxAge: maxAge
+    }
+}));
+
 app.use(Router);
 
 (async () => {

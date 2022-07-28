@@ -1,31 +1,17 @@
 const Recipe = require('../models/Recipe');
 const Ingredient = require('../models/Ingredient');
 const Instruction = require('../models/Instruction');
-const jimp = require('jimp');
 
 
 const createRecipe = async (req, res) => {
     try {
         const ingredients = req.body.ingredients;
         const instructions = req.body.instructions;
-
-        // const imagePath = `../images`;
-        // const jimpImageToBuffer = await jimp
-        //     .read(imagePath) // read image from path
-        //     .then((ele) => {
-        //         const mimeForImage = ele._originalMime;
-        //         return ele.getBufferAsync(mimeForImage); // convert image to buffer(compatible to save to database).
-        //     })
-        //     .catch((err) => console.log(err));
-        // console.log(jimpImageToBuffer); // <- image in buffer, save this file in database(in image column)
-        // const imageExtensionAndMIME = await fileTypeFromFile(imagePath); // extract image extension and image type.
-        // const { ext: imageExtension, mime: imageMimeType } = imageExtensionAndMIME;
-
         const newRecipe = await Recipe.create({
             title: req.body.title,
             description: req.body.description,
             img_url: req.body.img_url,
-            // img_data: imageData,
+            img_data: req.image,
             img_alt_text: req.body.img_alt_text,
             total_time: req.body.total_time,
             id_tasty: req.body.id_tasty,
@@ -68,7 +54,7 @@ const updateRecipe = async (req, res) => {
             title: req.body.title,
             description: req.body.description,
             img_url: req.body.img_url,
-            // img_data: imageData,
+            img_data: req.image,
             img_alt_text: req.body.img_alt_text,
             total_time: req.body.total_time,
             id_tasty: req.body.id_tasty,

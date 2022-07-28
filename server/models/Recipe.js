@@ -1,5 +1,6 @@
 const sequelize = require('./index');
 const {DataTypes} = require('sequelize');
+const User = require('./User');
 const Ingredient = require('./Ingredient');
 const Instruction = require('./Instruction');
 

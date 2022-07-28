@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const { createUser } = require('./controllers/userController');
 const {createRecipe, removeRecipe, getAllRecipe, updateRecipe} = require("./controllers/recipeController");
+const fileMiddleware = require("./middlewares/uploadFile.middleware");
 
 router.post('/register', createUser);
-router.post('/recipes', createRecipe);
-router.put('/recipes/:id', updateRecipe);
+router.post('/recipes', fileMiddleware, createRecipe);
+router.put('/recipes/:id', fileMiddleware, updateRecipe);
 router.delete('/recipes/:id', removeRecipe);
 router.get('/recipes', getAllRecipe);
 router.get('*', function (req, res) {

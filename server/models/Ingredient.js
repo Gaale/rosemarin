@@ -1,5 +1,6 @@
 const sequelize = require('./index');
 const {DataTypes} = require('sequelize');
+const Recipe = require('./Recipe');
 
 const Ingredient = sequelize.define('Ingredient', {
     name: {

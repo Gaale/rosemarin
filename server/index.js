@@ -9,8 +9,13 @@ const corsOptions = {
 const PORT = 3001;
 app.use(cors(corsOptions));
 app.use(express.json());
+const fileUpload  = require('express-fileupload')
+app.use(
+    fileUpload({
+        createParentPath: true,
+    }),
+);
 app.use(Router);
-
 
 (async () => {
     try{

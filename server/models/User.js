@@ -1,7 +1,7 @@
 const sequelize = require('./index');
 const {DataTypes} = require('sequelize');
 const Recipe = require('./Recipe');
-const ShoppingListUnit = require('./ShoppingListUnit');
+const ShoppingListItem = require('./ShoppingListItem');
 
 const User = sequelize.define('User', {
     name: {
@@ -19,6 +19,6 @@ const User = sequelize.define('User', {
 });
 
 User.hasMany(Recipe, { onDelete: "cascade" });
-User.hasMany(ShoppingListUnit, { onDelete: "cascade" });
+User.hasMany(ShoppingListItem, { onDelete: "cascade" });
 
 module.exports = User;

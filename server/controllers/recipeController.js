@@ -1,6 +1,7 @@
 const Recipe = require('../models/Recipe');
 const Ingredient = require('../models/Ingredient');
 const Instruction = require('../models/Instruction');
+const fs = require('fs');
 
 
 const createRecipe = async (req, res) => {
@@ -88,8 +89,10 @@ const updateRecipe = async (req, res) => {
 const removeRecipe = async (req, res) => {
     try {
         const id = req.params.id;
-
-        await Recipe.destroy({ where: { id: id } });
+        const recipe = await Recipe.findByPk(id);
+        const path = recipe.img_data;
+        await Recipe.destroy({where: {id: id}});
+        fs.unlinkSync(path);
         res.status(200).send({"message": "Recipe has been successfully removed"});
     } catch (err) {
         console.log(err);
@@ -97,15 +100,17 @@ const removeRecipe = async (req, res) => {
     }
 }
 
-const getAllRecipe = async (req, res) => {
+const getAllRecipes = async (req, res) => {
     try {
-        const allRecipes = await Recipe.findAll({include: ["Instructions", "Ingredients"]});
+        // todo add here user id from session
+        const userId = 1;
+        const allRecipes = await Recipe.findAll({where: {UserId: userId}, include: ["Instructions", "Ingredients"]});
         res.status(200).send(allRecipes);
-    } catch(err) {
+    } catch (err) {
         console.log(err);
         res.status(500).send({"message": "Due to error recipes have not been received"})
     }
 }
 
 
-module.exports = { createRecipe, removeRecipe, updateRecipe, getAllRecipe }
+module.exports = {createRecipe, removeRecipe, updateRecipe, getAllRecipes}

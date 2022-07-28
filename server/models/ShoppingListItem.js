@@ -1,7 +1,7 @@
 const sequelize = require('./index');
 const {DataTypes} = require('sequelize');
 
-const ShoppingListUnit = sequelize.define('ShoppingListUnit', {
+const ShoppingListItem = sequelize.define('ShoppingListItem', {
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -17,4 +17,4 @@ const ShoppingListUnit = sequelize.define('ShoppingListUnit', {
 });
 
 
-module.exports = ShoppingListUnit;
+module.exports = ShoppingListItem;

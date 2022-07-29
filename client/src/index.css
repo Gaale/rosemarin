@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "PoiretOne-Regular";
+    src: url("./fonts/PoiretOne-Regular.ttf") format("opentype")
+}
+@font-face {
+    font-family: "Rufina-Bold";
+    src: url("./fonts/Rufina-Bold.ttf") format("opentype")
+}
+
+@font-face {
+    font-family: "Rufina-Regular";
+    src: url("./fonts/Rufina-Regular.ttf") format("opentype")
+}
+
+@font-face {
+    font-family: "Oxygen-Bold";
+    src: url("./fonts/Oxygen-Bold.ttf") format("opentype")
+}
+
+@font-face {
+    font-family: "Oxygen-Regular";
+    src: url("./fonts/Oxygen-Regular.ttf") format("opentype")
+}
+
+@font-face {
+    font-family: "Oxygen-Light";
+    src: url("./fonts/Oxygen-Light.ttf") format("opentype")
+}

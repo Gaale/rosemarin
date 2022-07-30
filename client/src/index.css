@@ -1,3 +1,5 @@
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,3 +32,55 @@
     font-family: "Oxygen-Light";
     src: url("./fonts/Oxygen-Light.ttf") format("opentype")
 }
+
+@font-face {
+    font-family: "AlexBrush-Regular";
+    src: url("./fonts/AlexBrush-Regular.ttf") format("opentype")
+}
+
+.container-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+}
+
+.span-col-4{
+    grid-column: span 4 / auto;
+}
+
+.span-col-2{
+    grid-column: span 2 / auto;
+}
+
+.span-row-2{
+    grid-row: span 2 / auto;
+}
+
+.horizontal figure {
+    width: 50%;
+}
+.vertical figure image{
+    /*background-size: contain;*/
+    /*background-position: center;*/
+}
+.vertical figure {
+    /*height: 50%;*/
+}
+
+.card-body {
+    justify-content: space-between;
+    line-height: inherit;
+    outline: none;
+    text-decoration: none;
+}
+
+.rbt:first-child {
+    min-width: 300px;
+}
+.rbt:last-child {
+    min-width: 300px;
+    z-index: 100;
+    display: inline-block;
+}
+
+

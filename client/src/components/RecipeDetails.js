@@ -1,29 +1,33 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { getSearchedById } from "../Utils/apiService";
 
 
-const RecipeDetails = () => {
+const RecipeDetails = ({recipes}) => {
     const [recipe, setRecipe] = useState({});
+
     const { id } = useParams();
 
-    getSearchedById(id).then(result => {
-        return setRecipe(result.meals[0])
-    }).catch(err => console.log.bind(err));
+    useEffect(() => {
+        setRecipe(recipes.find(res => id === res.id))
+    }, [])
 
+    // getSearchedById(id).then(result => {
+    //     return setRecipe(result.meals[0])
+    // }).catch(err => console.log.bind(err));
 
     return (
         <div className="bg-base-100 shadow-xl mt-40">
-            <div>
-                <figure><img src={ recipe.strMealThumb } alt={ recipe.strMeal }/></figure>
-            </div>
-            <div className="card-body">
-                <h2 className="card-title">Here should be</h2>
-                <h2 className="card-title">{ recipe.strMeal }</h2>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Details</button>
-                </div>
-            </div>
+            {/*<div>*/}
+            {/*    <figure><img src={ recipe.thumbnail_url } alt={ recipe.name }/></figure>*/}
+            {/*</div>*/}
+            {/*<div className="card-body">*/}
+            {/*    <h2 className="card-title">{ recipe.name }</h2>*/}
+            {/*    <p>{ recipe.description }</p>*/}
+            {/*    <div className="card-actions justify-end">*/}
+            {/*        <button className="btn btn-primary">Details</button>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </div>
     );
 };

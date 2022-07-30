@@ -14,23 +14,26 @@ import ShoppingList from "./components/ShoppingList";
 import Menu from "./components/Menu";
 import WeeklyMenu from "./components/WeeklyMenu";
 import RecipeDetails from "./components/RecipeDetails";
+import TopSection from "./components/TopSection";
+import SearchForm from "./components/SearchForm";
 
 function App() {
     const [recipes, setRecipes] = useState([]);
     const [categories, setCategories] = useState([]);
 
-    useEffect(() => {
-        getRandomRecipe()
-            .then(newRecipes => setRecipes(newRecipes.meals))
-            .catch(err => console.log.bind(err))
-    }, []);
 
     useEffect(() => {
-        getCategory()
-            .then(cats => setCategories(cats.categories))
-            .catch(err => console.log.bind(err))
+        // getRandomRecipe()
+        //     .then(data => setRecipes(data))
+        //     .catch(err => console.log.bind(err))
+        setRecipes(getRandomRecipe());
     }, []);
 
+    // useEffect(() => {
+    //     getCategory()
+    //         .then(cats => setCategories(cats.categories))
+    //         .catch(err => console.log.bind(err))
+    // }, []);
 
 
 
@@ -38,6 +41,8 @@ function App() {
         <div className="font-oxy-regular">
             <BrowserRouter>
                 <Navbar setRecipes={setRecipes} categories={categories}></Navbar>
+                <TopSection></TopSection>
+                <SearchForm setRecipes={setRecipes} categories={categories}></SearchForm>
                 <Routes>
                     <Route exact path="/" element={<RecipesList recipes={recipes} setRecipes={setRecipes}/>}></Route>
                     <Route exact path="/my_recipes" element={<MyRecipesList />}></Route>

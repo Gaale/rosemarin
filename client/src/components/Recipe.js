@@ -1,14 +1,19 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faHeart} from "@fortawesome/fontawesome-free-solid";
 
-const Recipe = ({ recipe }) => {
+const Recipe = ({ recipe, className }) => {
     return (
-        <li className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src={ recipe.strMealThumb } alt={ recipe.strMeal }/></figure>
+        <li className={className}>
+            <figure><img  src={ recipe.thumbnail_url } alt={ recipe.name }/></figure>
             <div className="card-body">
-                <h2 className="card-title font-rufina-bold">{ recipe.strMeal }</h2>
-                <div className="card-actions justify-end">
-                    <Link to={/recipes/ + recipe.idMeal} className="btn btn-primary font-oxy-light">Details</Link>
+                <h2 className="card-title font-rufina-bold">{ recipe.name }</h2>
+
+                <div className="card-actions justify-end flex justify-between">
+                    {/*<FontAwesomeIcon icon={faHeart} className="text-2xl self-center mr-3 link text-error cursor-pointer"/>*/}
+                    <FontAwesomeIcon icon={faHeart} className="text-2xl self-center mr-3 link-secondary cursor-pointer"/>
+                    <Link to={/recipes/ + recipe.id} className="btn btn-warning font-oxy-light">Details</Link>
                 </div>
             </div>
         </li>

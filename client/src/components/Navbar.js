@@ -8,7 +8,7 @@ import { faUser } from "@fortawesome/fontawesome-free-regular";
 
 library.add(faUser);
 
-const Navbar = ({ setRecipes, categories }) => {
+const Navbar = () => {
 
     return (
         <div className="relative">

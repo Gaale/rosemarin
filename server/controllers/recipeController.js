@@ -8,7 +8,6 @@ const createRecipe = async (req, res) => {
     try {
         const ingredients = req.body.ingredients;
         const instructions = req.body.instructions;
-        console.log(req.session.sid);
         const newRecipe = await Recipe.create({
             title: req.body.title,
             description: req.body.description,
@@ -17,7 +16,8 @@ const createRecipe = async (req, res) => {
             img_alt_text: req.body.img_alt_text,
             total_time: req.body.total_time,
             id_tasty: req.body.id_tasty,
-            UserId: req.session.sid
+            //todo const userId = req.session.sid;
+            UserId: 1
         });
 
         ingredients.map(ingredient => {
@@ -59,7 +59,8 @@ const updateRecipe = async (req, res) => {
             img_alt_text: req.body.img_alt_text,
             total_time: req.body.total_time,
             id_tasty: req.body.id_tasty,
-            UserId: req.session.sid
+            //todo const userId = req.session.sid;
+            UserId: 1
         });
 
         ingredients.map(ingredient => {
@@ -87,11 +88,16 @@ const updateRecipe = async (req, res) => {
 
 const removeRecipe = async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = req.body.id;
         const recipe = await Recipe.findByPk(id);
-        const path = recipe.img_data;
-        await Recipe.destroy({where: {id: id}});
-        fs.unlinkSync(path);
+        console.log("hello from file", recipe);
+        if(!recipe || !recipe.img_data){
+            await Recipe.destroy({where: {id: id}});
+        } else {
+            const path = recipe.img_data;
+            await Recipe.destroy({where: {id: id}});
+            fs.unlinkSync(path);
+        }
         res.status(200).send({"message": "Recipe has been successfully removed"});
     } catch (err) {
         console.log(err);
@@ -101,7 +107,8 @@ const removeRecipe = async (req, res) => {
 
 const getAllRecipes = async (req, res) => {
     try {
-        const userId = req.session.sid;
+        //todo const userId = req.session.sid;
+        const userId = 1;
         const allRecipes = await Recipe.findAll({where: {UserId: userId}, include: ["Instructions", "Ingredients"]});
         res.status(200).send(allRecipes);
     } catch (err) {

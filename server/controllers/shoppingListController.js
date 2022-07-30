@@ -6,7 +6,8 @@ const addItem = async (req, res) => {
             name: req.body.name,
             unit: req.body.unit,
             quantity: req.body.quantity,
-            UserId: req.session.sid
+            //todo const userId = req.session.sid;
+            UserId: 1
         });
         res.status(201).send({"message": "Item has been successfully added"});
     } catch (err) {
@@ -23,8 +24,8 @@ const updateItem = async (req, res) => {
             name: req.body.name,
             unit: req.body.unit,
             quantity: req.body.quantity,
-            // todo add here user id from session
-            UserId: req.session.sid
+            // todo const userId = req.session.sid;
+            UserId: 1
         });
         res.status(200).send({"message": "Item has been successfully updated"});
     } catch (err) {
@@ -46,7 +47,8 @@ const removeItem = async (req, res) => {
 
 const getAllItems = async (req, res) => {
     try {
-        const userId = req.session.sid;
+        //todo const userId = req.session.sid;
+        const userId = 1;
         const allItems = await ShoppingListItem.findAll({where: {UserId: userId}});
         res.status(200).send(allItems);
     } catch (err) {

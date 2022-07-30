@@ -2,14 +2,19 @@ const path = require('path');
 
 const fileMiddleware = async (req, res, next) => {
     try {
-        let file = req.files.file;
-        let ext = path.extname(file.name);
-        let newName = file.md5 + ext;
-        file.mv("./images/" + newName);
-        req.image = path.relative('/', './images/') + '/' + newName;
-        next();
+        if(req.files) {
+            let file = req.files.file;
+            let ext = path.extname(file.name);
+            let newName = file.md5 + ext;
+            file.mv("./images/" + newName);
+            req.image = path.relative('/', './images/') + '/' + newName;
+            next();
+        } else {
+            next();
+        }
     } catch (err) {
-        res.status(500).send(err);
+        console.log(err);
+        res.status(500).send("some error with file");
     }
 }
 

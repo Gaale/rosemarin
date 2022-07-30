@@ -4,13 +4,16 @@ import { getSearchedById } from "../Utils/apiService";
 
 
 const RecipeDetails = ({recipes}) => {
-    const [recipe, setRecipe] = useState({});
+    const [recipe, setRecipe] = useState([]);
 
     const { id } = useParams();
 
     useEffect(() => {
-        setRecipe(recipes.find(res => id === res.id))
-    }, [])
+        if(id){
+            const result = recipes.find(res => +id === res.id);
+            setRecipe(result);
+        }
+    }, [id])
 
     // getSearchedById(id).then(result => {
     //     return setRecipe(result.meals[0])
@@ -18,16 +21,16 @@ const RecipeDetails = ({recipes}) => {
 
     return (
         <div className="bg-base-100 shadow-xl mt-40">
-            {/*<div>*/}
-            {/*    <figure><img src={ recipe.thumbnail_url } alt={ recipe.name }/></figure>*/}
-            {/*</div>*/}
-            {/*<div className="card-body">*/}
-            {/*    <h2 className="card-title">{ recipe.name }</h2>*/}
-            {/*    <p>{ recipe.description }</p>*/}
-            {/*    <div className="card-actions justify-end">*/}
-            {/*        <button className="btn btn-primary">Details</button>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+            <div>
+                <figure className="w-1/2"><img src={ recipe.thumbnail_url } alt={ recipe.name }/></figure>
+            </div>
+            <div className="card-body">
+                <h2 className="card-title">{ recipe.name }</h2>
+                <p>{ recipe.description }</p>
+                <div className="card-actions justify-end">
+                    <button className="btn btn-primary">Details</button>
+                </div>
+            </div>
         </div>
     );
 };

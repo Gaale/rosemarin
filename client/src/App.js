@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar";
 import RecipesList from "./components/RecipesList";
@@ -17,12 +17,15 @@ import RecipeDetails from "./components/RecipeDetails";
 import TopSection from "./components/TopSection";
 import SearchForm from "./components/SearchForm";
 import {getMyRecipes} from "./Utils/apiDBService";
+import MyRecipesContext from "./context";
 
 function App() {
     const [recipes, setRecipes] = useState([]);
     const [categories, setCategories] = useState([]);
     const [myRecipes, setMyRecipes] = useState([]);
     const [ids, setIds] = useState([])
+
+    useContext(MyRecipesContext);
 
 
     useEffect(() => {
@@ -40,13 +43,12 @@ function App() {
 
     useEffect(() => {
         getMyRecipes()
-            .then(recipes => recipes.map(el => setIds(prev => !(prev.includes(el.id)) ? [...prev, el.id] : [...prev])))
-            .catch(err => console.log.bind(err));
+            .then(recipes => recipes.map(el => setIds(prev => {
+                const filtered = prev.filter(e => e.id_tasty !== el.id_tasty);
+                return [...filtered, el]
+            })))
+            .catch(err => console.log.bind(err))
     }, []);
-
-    // myRecipes.map(el => setIds(prev => [...prev, el.id]))
-
-
 
 
     return (

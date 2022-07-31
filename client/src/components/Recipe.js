@@ -12,7 +12,7 @@ const Recipe = ({ recipe, className, setIds, ids }) => {
 
                 <div className="card-actions justify-end flex justify-between">
                     <Heart recipe={recipe} setIds={setIds} ids={ids}/>
-                    <Link to={/recipes/ + recipe.id} className="btn btn-warning font-oxy-light">Details</Link>
+                    <Link to={/recipes/ + recipe.id} className="btn btn-warning font-rufina-regular">Details</Link>
                 </div>
             </div>
         </li>

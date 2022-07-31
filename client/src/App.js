@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
+import { ChakraProvider } from "@chakra-ui/react"
 import './App.css';
 import Navbar from "./components/Navbar";
 import RecipesList from "./components/RecipesList";
@@ -57,10 +58,9 @@ function App() {
         <div className="font-oxy-regular">
             <BrowserRouter>
                 <Navbar></Navbar>
-                <TopSection></TopSection>
-                <SearchForm setRecipes={setRecipes} categories={categories}></SearchForm>
+
                 <Routes>
-                    <Route exact path="/" element={<RecipesList recipes={recipes} setIds={setIds} ids={ids}/>}></Route>
+                    <Route exact path="/" element={<RecipesList setRecipes={setRecipes} recipes={recipes} setIds={setIds} ids={ids}/>}></Route>
                     <Route exact path="/my_recipes" element={<MyRecipesList myRecipes={myRecipes} setMyRecipes={setMyRecipes}/>}></Route>
                     <Route exact path="/recipes/:id" element={<RecipeDetails recipes={recipes} myRecipes={myRecipes} setIds={setIds}/>}></Route>
                     <Route exact path="/create" element={<CreateRecipe />}></Route>

@@ -17,15 +17,10 @@ module.exports = {
       },
       backgroundImage: {
         'top-img': "url('./images/dishes.jpg')",
+        'top-img2': "url('./images/orange.jpg')",
+        'top-img3': "url('./images/rosemary.jpg')",
       },
-      gridTemplateColumns: {
-        // Простая сетка из 16 столбцов
-        '16': 'repeat(16, minmax(0, 1fr))',
-
-        // Сложная конфигурация столбца для конкретного сайта
-        'footer': '200px minmax(900px, 1fr) 100px',
-      }
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("@tailwindcss/typography")],
 }

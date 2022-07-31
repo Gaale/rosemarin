@@ -26,7 +26,7 @@ const Navbar = () => {
                     <Link className="menu-item ml-10 cursor-pointer" to="/create">Create Recipe</Link>
                 </div>
                 <div className="">
-                    <Link to="/" className="btn btn-ghost normal-case text-3xl font-PoiretOne mr-4 ml-4">ROSEMARIN</Link>
+                    <Link to="/" className="btn btn-ghost normal-case text-3xl font-PoiretOne mr-4 ml-4">ROSEMARY</Link>
                 </div>
                 <div className="justify-start">
                     <Link className="menu-item mr-10 cursor-pointer" to="/shopping_list">Shopping List</Link>

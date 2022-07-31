@@ -44,8 +44,10 @@ function App() {
     useEffect(() => {
         getMyRecipes()
             .then(recipes => recipes.map(el => setIds(prev => {
+                let id = el.id;
+                let id_tasty = el.id_tasty;
                 const filtered = prev.filter(e => e.id_tasty !== el.id_tasty);
-                return [...filtered, el]
+                return [...filtered, {id, id_tasty}]
             })))
             .catch(err => console.log.bind(err))
     }, []);

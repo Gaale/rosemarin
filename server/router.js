@@ -13,7 +13,7 @@ router.get('/logout', authMiddleware, logoutUser);
 
 router.post('/recipes', fileMiddleware, createRecipe);
 router.put('/recipes/:id', fileMiddleware, updateRecipe);
-router.delete('/recipes/:id', removeRecipe);
+router.delete('/recipes', removeRecipe);
 router.get('/recipes', getAllRecipes);
 
 router.post('/items', addItem);

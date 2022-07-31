@@ -12,7 +12,7 @@ const Ingredient = sequelize.define('Ingredient', {
         allowNull: true
     },
     quantity: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
     },
 });

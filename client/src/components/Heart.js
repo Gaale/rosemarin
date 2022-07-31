@@ -7,21 +7,21 @@ import {deleteRecipe, getMyRecipes, postRecipe} from "../Utils/apiDBService";
 const Heart = ({recipe, setIds, ids}) => {
 
     const [isFavorite, setIsFavorite] = useState(false);
-    const [currentId, setCurrentId] = useState({});
+    const [currentId, setCurrentId] = useState(0);
 
 
     useEffect(() => {
         ids.map(id => {
-            if(id.id_tasty === recipe.id){
+            if (id.id_tasty === recipe.id) {
                 setIsFavorite(true);
-                setCurrentId(id);
+                setCurrentId(id.id);
             }
         })
     }, [ids]);
 
     const isFavoriteHandler = () => {
         setIsFavorite(() => !isFavorite);
-        if(!isFavorite){
+        if (!isFavorite) {
             const instructions = recipe.instructions.map(el => {
                 let text = el.display_text;
                 return {text}
@@ -52,31 +52,30 @@ const Heart = ({recipe, setIds, ids}) => {
                 .then(res => console.log(res))
                 .catch(error => console.log(error))
 
-            setIds(prev => [...prev, currentId]);
+            setIds(prev => [...prev, {id: currentId, id_tasty: recipe.id}]);
 
         } else {
-            if(Object.keys(currentId).length !== 0) {
-                deleteRecipe({id: currentId.id})
-                    .then(res => console.log(res))
-                    .catch(error => console.log(error))
-                setIds(prev => {
-                    const filtered = prev.filter(id => id.id_tasty !== currentId.id_tasty);
-                    return [...filtered]
-                })
-            }
+            deleteRecipe({id: currentId})
+                .then(res => console.log(res))
+                .catch(error => console.log(error))
+            setIds(prev => {
+                const filtered = prev.filter(id => id.id !== currentId);
+                return [...filtered]
+            })
+
         }
 
     }
     return (
         (isFavorite) ?
-        <FontAwesomeIcon
-            onClick={isFavoriteHandler}
-            icon={faHeart}
-            className="text-2xl self-center mr-3 link text-error cursor-pointer"/> :
-        <FontAwesomeIcon
-            onClick={isFavoriteHandler}
-            icon={faHeart}
-            className="text-2xl self-center mr-3 link-secondary cursor-pointer"/>
+            <FontAwesomeIcon
+                onClick={isFavoriteHandler}
+                icon={faHeart}
+                className="text-2xl self-center mr-3 link text-error cursor-pointer"/> :
+            <FontAwesomeIcon
+                onClick={isFavoriteHandler}
+                icon={faHeart}
+                className="text-2xl self-center mr-3 link-secondary cursor-pointer"/>
     );
 };
 

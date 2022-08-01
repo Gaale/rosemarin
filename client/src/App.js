@@ -53,6 +53,13 @@ function App() {
             .catch(err => console.log.bind(err))
     }, []);
 
+    useEffect(() => {
+        getMyRecipes()
+            // .then(recipes => console.log(recipes))
+            .then(recipes => setMyRecipes(recipes))
+            .catch(err => console.log.bind(err))
+    }, [ids])
+
 
     return (
         <div className="font-oxy-regular">
@@ -62,7 +69,7 @@ function App() {
                 <Routes>
                     <Route exact path="/" element={<RecipesList setRecipes={setRecipes} recipes={recipes} setIds={setIds} ids={ids}/>}></Route>
                     <Route exact path="/my_recipes" element={<MyRecipesList myRecipes={myRecipes} setMyRecipes={setMyRecipes} setIds={setIds} ids={ids} setRecipes={setRecipes}/>}></Route>
-                    <Route exact path="/recipes/:id" element={<RecipeDetails recipes={recipes} myRecipes={myRecipes} setIds={setIds}/>}></Route>
+                    <Route exact path="/recipes/:id" element={<RecipeDetails recipes={recipes} myRecipes={myRecipes} ids={ids} />}></Route>
                     <Route exact path="/create" element={<CreateRecipe />}></Route>
                     <Route exact path="/shopping_list" element={<ShoppingList />}></Route>
                     <Route exact path="/menu" element={<Menu />}></Route>

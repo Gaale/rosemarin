@@ -10,7 +10,7 @@ const RecipesList = ({recipes, setIds, ids, setRecipes}) => {
             <SearchForm setRecipes={setRecipes}></SearchForm>
             <ul className="bg-transparent container-grid max-w-7xl mx-auto pr-5 pl-5">
                 {recipes.map((recipe, i) =>
-                    (i === 4) ?
+                    (i === 4 || i%10 === 4 ) ?
                         <Recipe
                             recipe={recipe}
                             key={recipe.id}
@@ -18,7 +18,7 @@ const RecipesList = ({recipes, setIds, ids, setRecipes}) => {
                             setIds={setIds}
                             ids={ids}
                         ></Recipe> :
-                        (i === 6) ?
+                        (i === 6 || i%10 === 6) ?
                             <Recipe
                                 recipe={recipe}
                                 key={recipe.id}
@@ -26,11 +26,9 @@ const RecipesList = ({recipes, setIds, ids, setRecipes}) => {
                                 setIds={setIds}
                                 ids={ids}
                             ></Recipe> :
-                            (i > 9) ? null :
                                 <Recipe
                                     recipe={recipe}
-                                    key={recipe.id}
-                                    className={"vertical card bg-base-100 shadow-xl"}
+                                    key={recipe.id} className={"vertical card bg-base-100 shadow-xl"}
                                     setIds={setIds}
                                     ids={ids}
                                 ></Recipe>

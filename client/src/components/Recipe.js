@@ -6,28 +6,17 @@ import Heart from "./Heart";
 const Recipe = ({ recipe, className, setIds, ids }) => {
     return (
         <li className={className}>
-            <figure><img  src={ recipe.thumbnail_url } alt={ recipe.name }/></figure>
+            <figure><img  src={ recipe.thumbnail_url || recipe.img_url || recipe.img_data } alt={ recipe.name || recipe.title }/></figure>
             <div className="card-body">
-                <h2 className="card-title font-rufina-bold">{ recipe.name }</h2>
+                <h2 className="card-title font-rufina-bold">{ recipe.name || recipe.title }</h2>
 
                 <div className="card-actions justify-end flex justify-between">
                     <Heart recipe={recipe} setIds={setIds} ids={ids}/>
-                    <Link to={/recipes/ + recipe.id} className="btn btn-warning font-rufina-regular">Details</Link>
+                    <Link to={/recipes/ + (recipe.id_tasty || recipe.id)} className="btn btn-warning font-rufina-regular">Details</Link>
                 </div>
             </div>
         </li>
     );
 };
-
-
-// <li className={className}>
-//     <span>{lable}</span>
-//     <p className="shortDate"><span>{moment(event.date).format('Do MMM')}</span></p>
-//     <div className="eventWrapper">
-//         <h3 className="titleEvent">{event.title}</h3>
-//         <p className="info">{moment(event.date).format('LT')} - {moment(event.date).format('LL')}</p>
-//         <p className="info">{event.venue}</p>
-//     </div>
-// </li>
 
 export default Recipe;

@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import TopSection from "./TopSection";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Instruction from "./Instruction";
 import Ingredient from "./Ingredient";
-import instruction from "./Instruction";
+import {postRecipe} from "../Utils/apiDBService";
 
 
 function CreateRecipe() {
@@ -17,12 +17,31 @@ function CreateRecipe() {
         formState: {errors}
     } = useForm({mode: "onBlur"});
 
-    const [submittedVal, setSubmittedVal] = useState();
+    // const [submittedVal, setSubmittedVal] = useState([]);
 
 
-    const onSubmit = (data) => {
-        setSubmittedVal(data);
-        console.log(data);
+    const onSubmit = ({title, description, url, file, ...rest}) => {
+        const subInstructions = [];
+        const tmpIngredients = [];
+        // const subIngredients = [];
+        for(let [key, value] of Object.entries(rest)){
+            if(key.includes('instruction')) instructions.push({text: value});
+            if(key.includes('ingredient')) tmpIngredients.push({key, value});
+
+        }
+
+        console.log(ingredients);
+        const newRecipe = {
+            title: title,
+            description: description,
+            img_url: url || null,
+            img_alt_text: title,
+            ingredients: [{ name: "water"}],
+            instructions: subInstructions
+        }
+        postRecipe(newRecipe)
+            .then(res => console.log(res))
+            .catch(error => console.log(error))
     };
 
 
@@ -81,7 +100,7 @@ function CreateRecipe() {
                         {...register("description", {
                             required: {value: true, message: "This is required."}
                         })}
-                        style={{borderColor: errors.title && "red"}}
+                        style={{borderColor: errors.description && "red"}}
                         placeholder="Type here description of your recipe..."
                         className="textarea input-bordered w-full hover:bg-slate-50 cursor-pointer"
                     />
@@ -151,13 +170,6 @@ function CreateRecipe() {
                 </div>
 
                 <button type="submit" className="btn btn-neutral font-rufina-regular">Submit</button>
-                {submittedVal && (
-                    <div>
-                        Submitted Data:
-                        <br/>
-                        {submittedVal}
-                    </div>
-                )}
             </form>
         </>
     );

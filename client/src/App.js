@@ -61,7 +61,7 @@ function App() {
 
                 <Routes>
                     <Route exact path="/" element={<RecipesList setRecipes={setRecipes} recipes={recipes} setIds={setIds} ids={ids}/>}></Route>
-                    <Route exact path="/my_recipes" element={<MyRecipesList myRecipes={myRecipes} setMyRecipes={setMyRecipes}/>}></Route>
+                    <Route exact path="/my_recipes" element={<MyRecipesList myRecipes={myRecipes} setMyRecipes={setMyRecipes} setIds={setIds} ids={ids}/>}></Route>
                     <Route exact path="/recipes/:id" element={<RecipeDetails recipes={recipes} myRecipes={myRecipes} setIds={setIds}/>}></Route>
                     <Route exact path="/create" element={<CreateRecipe />}></Route>
                     <Route exact path="/shopping_list" element={<ShoppingList />}></Route>

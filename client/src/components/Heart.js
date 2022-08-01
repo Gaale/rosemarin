@@ -12,7 +12,7 @@ const Heart = ({recipe, setIds, ids}) => {
 
     useEffect(() => {
         ids.map(id => {
-            if (id.id_tasty === recipe.id) {
+            if (id.id_tasty === recipe.id || id.id_tasty === recipe.id_tasty) {
                 setIsFavorite(true);
                 setCurrentId(id.id);
             }

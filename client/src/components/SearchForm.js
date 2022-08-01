@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {getSearchedByCategory} from "../Utils/apiService";
 import {options} from '../data';
+import {Link} from "react-router-dom";
 
 const SearchForm = ({setRecipes, categories}) => {
 
@@ -20,7 +21,7 @@ const SearchForm = ({setRecipes, categories}) => {
                         {/*{categories.map(cats => <option value={cats.strCategory} key={cats.idCategory}>{cats.strCategory}</option>)}*/}
                         {options.map(option => <option value={option.display_name} key={option.id}>{option.display_name}</option>)}
                     </select>
-                    <button type="submit" className="btn btn-neutral">Search</button>
+                    <button type="submit" className="btn btn-neutral"><Link to="/">Search</Link></button>
                 </form>
             </div>
         </div>

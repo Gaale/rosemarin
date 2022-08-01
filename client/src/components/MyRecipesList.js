@@ -5,7 +5,7 @@ import Recipe from "./Recipe";
 import {getMyRecipes} from "../Utils/apiDBService";
 import recipe from "./Recipe";
 
-const MyRecipesList = ({myRecipes, setMyRecipes, setIds, ids}) => {
+const MyRecipesList = ({myRecipes, setMyRecipes, setIds, ids, setRecipes}) => {
 
     useEffect(() => {
         getMyRecipes()
@@ -16,9 +16,13 @@ const MyRecipesList = ({myRecipes, setMyRecipes, setIds, ids}) => {
 
 
     return (
-        <>
+        <div className="mb-20">
             <TopSection></TopSection>
-            {/*<SearchForm setRecipes={setRecipes}></SearchForm>*/}
+            <div className="prose lg:prose-xl  m-auto mb-10 text-center">
+                <h2 className="m-auto font-rufina-bold ">List of favourite recipes</h2>
+            </div>
+            <SearchForm setRecipes={setRecipes}></SearchForm>
+
             <ul className="bg-transparent container-grid max-w-7xl mx-auto pr-5 pl-5">
                 {myRecipes.map((recipe, i) =>
                     (i === 4) ?
@@ -47,7 +51,7 @@ const MyRecipesList = ({myRecipes, setMyRecipes, setIds, ids}) => {
                                 ></Recipe>
                 )}
             </ul>
-        </>
+        </div>
     );
 };
 

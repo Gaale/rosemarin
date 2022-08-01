@@ -17,9 +17,6 @@ function CreateRecipe() {
         formState: {errors}
     } = useForm({mode: "onBlur"});
 
-    // const [submittedVal, setSubmittedVal] = useState([]);
-
-
     const onSubmit = ({title, description, url, file, ...rest}) => {
         const subInstructions = [];
         const tmpIngredients = [];
@@ -27,14 +24,17 @@ function CreateRecipe() {
         for(let [key, value] of Object.entries(rest)){
             if(key.includes('instruction')) instructions.push({text: value});
             if(key.includes('ingredient')) tmpIngredients.push({key, value});
-
         }
+        // const file = files[0];
+        // const formData = new FormData();
+        // formData.append('file', file);
 
-        console.log(ingredients);
+        console.log(file);
         const newRecipe = {
             title: title,
             description: description,
             img_url: url || null,
+            file: file,
             img_alt_text: title,
             ingredients: [{ name: "water"}],
             instructions: subInstructions
@@ -159,7 +159,7 @@ function CreateRecipe() {
                 <div>
                     <label className="label">Upload image</label>
                     <input type='file'
-                           {...register("file")}
+                           {...register("file", {})}
                            className="block w-full text-sm text-slate-500
                        file:mr-4 file:py-2 file:px-4
                        file:square file:border-0

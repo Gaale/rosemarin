@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Ingredient = ({register, ingredient}) => {
+    //todo `${ingredient}`
     return (
         <div className="flex justify-between mb-3">
             <input type="text"

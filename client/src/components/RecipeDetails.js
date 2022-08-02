@@ -73,7 +73,7 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
                                             <th>{ comp.ingredient.name}</th>
                                             <td>{comp.measurements[0].quantity}</td>
                                             <td>{comp.measurements[0].unit.name}</td>
-                                            <td><label className="swap">
+                                            <td><label className="swap swap-rotate">
                                                 <input type="checkbox" />
                                                 <FontAwesomeIcon
                                                     icon="fa-solid fa-plus"
@@ -112,7 +112,7 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
                 }
                 {
                     recipe.renditions ? recipe.renditions.map((url, i) => <a key={i}
-                                                                             className="link-secondary" href={url.url} target="_blank">{url.url}</a>,<br/>) : <span></span>
+                                                                             className="link-secondary text-center" href={url.url} target="_blank">{url.url}</a>,<br />) : <span></span>
                 }
                 {/*<div className="card-actions justify-end">*/}
                 {/*    <button className="btn btn-warning">Details</button>*/}

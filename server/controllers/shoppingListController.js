@@ -2,14 +2,14 @@ const ShoppingListItem = require('../models/ShoppingListItem')
 
 const addItem = async (req, res) => {
     try {
-        const item = await ShoppingListItem.create({
+        await ShoppingListItem.create({
             name: req.body.name,
             unit: req.body.unit,
             quantity: req.body.quantity,
             //todo const userId = req.session.sid;
             UserId: 1
         });
-        res.status(201).send(item);
+        res.status(201).send({"message": "Item has been successfully added"});
     } catch (err) {
         console.log(err);
         res.status(500).send({"message": "Due to error item has not been added"});
@@ -18,7 +18,7 @@ const addItem = async (req, res) => {
 
 const updateItem = async (req, res) => {
     try {
-        const id = req.body.id;
+        const id = req.params.id;
         await ShoppingListItem.destroy({where: {id: id}});
         await ShoppingListItem.create({
             name: req.body.name,
@@ -36,7 +36,7 @@ const updateItem = async (req, res) => {
 
 const removeItem = async (req, res) => {
     try {
-        const id = req.body.id;
+        const id = req.params.id;
         await ShoppingListItem.destroy({where: {id: id}});
         res.status(200).send({"message": "Item has been successfully deleted"});
     } catch (err) {

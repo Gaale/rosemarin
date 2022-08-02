@@ -1,5 +1,5 @@
 import React from 'react';
 
-const MyRecipesContext = React.createContext([]);
+const MyShoppingListContext = React.createContext([]);
 
-export default MyRecipesContext;
+export default MyShoppingListContext;

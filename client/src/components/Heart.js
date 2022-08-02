@@ -55,14 +55,15 @@ const Heart = ({recipe, setIds, ids}) => {
             setIds(prev => [...prev, {id: currentId, id_tasty: recipe.id}]);
 
         } else {
-            deleteRecipe({id: currentId})
-                .then(res => console.log(res))
-                .catch(error => console.log(error))
-            setIds(prev => {
-                const filtered = prev.filter(id => id.id !== currentId);
-                return [...filtered]
-            })
-
+            if (window.confirm("You are removing recipe. Are you sure?")) {
+                deleteRecipe({id: currentId})
+                    .then(res => console.log(res))
+                    .catch(error => console.log(error))
+                setIds(prev => {
+                    const filtered = prev.filter(id => id.id !== currentId);
+                    return [...filtered]
+                })
+            }
         }
 
     }

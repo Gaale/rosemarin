@@ -17,8 +17,8 @@ router.delete('/recipes', removeRecipe);
 router.get('/recipes', getAllRecipes);
 
 router.post('/items', addItem);
-router.put('/items/:id', updateItem);
-router.delete('/items/:id', removeItem);
+router.put('/items', updateItem);
+router.delete('/items', removeItem);
 router.get('/items', getAllItems);
 
 router.get('*', function (req, res) {

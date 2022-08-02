@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Instruction = ({register, instruction}) => {
+const Instruction = ({instruction}) => {
     return (
         <textarea
-            {...register(`${instruction}`, {required: {value: true, message: "This is required."}})}
+            name={"text-"+instruction}
             placeholder="Type here instruction.."
             className="textarea input-bordered w-full hover:bg-slate-50"
         />

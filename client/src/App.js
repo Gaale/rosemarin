@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useContext} from 'react';
-import { ChakraProvider } from "@chakra-ui/react"
 import './App.css';
 import Navbar from "./components/Navbar";
 import RecipesList from "./components/RecipesList";
@@ -15,19 +14,22 @@ import ShoppingList from "./components/ShoppingList";
 import Menu from "./components/Menu";
 import WeeklyMenu from "./components/WeeklyMenu";
 import RecipeDetails from "./components/RecipeDetails";
-import TopSection from "./components/TopSection";
-import SearchForm from "./components/SearchForm";
 import {getMyRecipes} from "./Utils/apiDBService";
-import MyRecipesContext from "./context";
+import {getMyShoppingList} from "./Utils/apiDBServiceShoppingList";
 
 function App() {
     const [recipes, setRecipes] = useState([]);
     const [categories, setCategories] = useState([]);
     const [myRecipes, setMyRecipes] = useState([]);
     const [ids, setIds] = useState([])
+    const [items, setItems] = useState([]);
 
-    useContext(MyRecipesContext);
-
+    useEffect(() => {
+        getMyShoppingList()
+            // .then(recipes => console.log(recipes))
+            .then(itemsSL => setItems(itemsSL))
+            .catch(err => console.log.bind(err))
+    }, [])
 
     useEffect(() => {
         // getRandomRecipe()
@@ -65,17 +67,20 @@ function App() {
         <div className="font-oxy-regular">
             <BrowserRouter>
                 <Navbar></Navbar>
-
                 <Routes>
-                    <Route exact path="/" element={<RecipesList setRecipes={setRecipes} recipes={recipes} setIds={setIds} ids={ids}/>}></Route>
-                    <Route exact path="/my_recipes" element={<MyRecipesList myRecipes={myRecipes} setMyRecipes={setMyRecipes} setIds={setIds} ids={ids} setRecipes={setRecipes}/>}></Route>
-                    <Route exact path="/recipes/:id" element={<RecipeDetails recipes={recipes} myRecipes={myRecipes} ids={ids} />}></Route>
-                    <Route exact path="/create" element={<CreateRecipe />}></Route>
-                    <Route exact path="/shopping_list" element={<ShoppingList />}></Route>
-                    <Route exact path="/menu" element={<Menu />}></Route>
-                    <Route exact path="/weekly_menu" element={<WeeklyMenu />}></Route>
+                    <Route exact path="/"
+                           element={<RecipesList setRecipes={setRecipes} recipes={recipes} setIds={setIds}
+                                                 ids={ids}/>}></Route>
+                    <Route exact path="/my_recipes"
+                           element={<MyRecipesList myRecipes={myRecipes} setMyRecipes={setMyRecipes} setIds={setIds}
+                                                   ids={ids} setRecipes={setRecipes}/>}></Route>
+                    <Route exact path="/recipes/:id" element={<RecipeDetails recipes={recipes} myRecipes={myRecipes} setItems={setItems} setIds={setIds} ids={ids}/>}></Route>
+                    <Route exact path="/create" element={<CreateRecipe/>}></Route>
+                    <Route exact path="/menu" element={<Menu/>}></Route>
+                    <Route exact path="/weekly_menu" element={<WeeklyMenu/>}></Route>
                 </Routes>
             </BrowserRouter>
+            <ShoppingList items={items} setItems={setItems}/>
         </div>
     );
 }

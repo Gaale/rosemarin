@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useForm} from "react-hook-form";
+// import {useForm} from "react-hook-form";
 import TopSection from "./TopSection";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Instruction from "./Instruction";
@@ -11,37 +11,70 @@ function CreateRecipe() {
     const [ingredients, setIngredients] = useState(['1-ingredient']);
     const [instructions, setInstructions] = useState(['1-instruction']);
 
-    const {
-        register,
-        handleSubmit,
-        formState: {errors}
-    } = useForm({mode: "onBlur"});
+    // const {
+    //     register,
+    //     handleSubmit,
+    //     formState: {errors}
+    // } = useForm({mode: "onBlur"});
 
-    const onSubmit = ({title, description, url, file, ...rest}) => {
+    // const onSubmit = ({title, description, url, file, ...rest}) => {
+    //     const subInstructions = [];
+    //     const tmpIngredients = [];
+    //     // const subIngredients = [];
+    //     for(let [key, value] of Object.entries(rest)){
+    //         if(key.includes('instruction')) instructions.push({text: value});
+    //         if(key.includes('ingredient')) tmpIngredients.push({key, value});
+    //     }
+    //     // const file = files[0];
+    //     // const formData = new FormData();
+    //     // formData.append('file', file);
+    //
+    //     console.log(file);
+    //     const newRecipe = {
+    //         title: title,
+    //         description: description,
+    //         img_url: url || null,
+    //         file: file,
+    //         img_alt_text: title,
+    //         ingredients: [{ name: "water"}],
+    //         instructions: subInstructions
+    //     }
+    //     postRecipe(newRecipe)
+    //         .then(res => console.log(res))
+    //         .catch(error => console.log(error))
+    // };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
         const subInstructions = [];
         const tmpIngredients = [];
         // const subIngredients = [];
-        for(let [key, value] of Object.entries(rest)){
-            if(key.includes('instruction')) instructions.push({text: value});
-            if(key.includes('ingredient')) tmpIngredients.push({key, value});
-        }
+        // for(let [key, value] of Object.entries(rest)){
+        //     if(key.includes('instruction')) instructions.push({text: value});
+        //     if(key.includes('ingredient')) tmpIngredients.push({key, value});
+        // }
         // const file = files[0];
         // const formData = new FormData();
         // formData.append('file', file);
 
-        console.log(file);
+console.log(e.target[7].files[0]);
         const newRecipe = {
-            title: title,
-            description: description,
-            img_url: url || null,
-            file: file,
-            img_alt_text: title,
+            title: e.target.title.value,
+            description: e.target.description.value,
+            img_url: e.target.url.value || null,
+            files: e.target[7].files[0],
+            img_alt_text: e.target.title.value,
             ingredients: [{ name: "water"}],
-            instructions: subInstructions
+            instructions: [{ text: "water"}]
         }
         postRecipe(newRecipe)
             .then(res => console.log(res))
             .catch(error => console.log(error))
+
+        e.target.title.value = '';
+        e.target.description.value = '';
+        e.target.url.value = '';
+        e.target.title = '';
     };
 
 
@@ -80,15 +113,12 @@ function CreateRecipe() {
     return (
         <>
             <TopSection></TopSection>
-            <form onSubmit={handleSubmit(onSubmit)} className='w-2/3 m-auto form-control prose lg:prose-xl mb-40'>
+            <form encType='multipart/form-data' onSubmit={handleSubmit} className='w-2/3 m-auto form-control prose lg:prose-xl mb-40'>
                 <h2 className="m-auto font-rufina-bold">Create your own recipe</h2>
                 <div>
                     <label className="label">Title</label>
                     <input type="text"
-                           {...register("title", {
-                               required: {value: true, message: "This is required."}
-                           })}
-                           style={{borderColor: errors.title && "red"}}
+                            name="title"
                            placeholder="Type here title of your recipe..."
                            className="input input-bordered w-full hover:bg-slate-50"
                     />
@@ -97,10 +127,7 @@ function CreateRecipe() {
                 <div>
                     <label className="label">Description</label>
                     <textarea
-                        {...register("description", {
-                            required: {value: true, message: "This is required."}
-                        })}
-                        style={{borderColor: errors.description && "red"}}
+                        name="description"
                         placeholder="Type here description of your recipe..."
                         className="textarea input-bordered w-full hover:bg-slate-50 cursor-pointer"
                     />
@@ -121,7 +148,7 @@ function CreateRecipe() {
                     </label>
                     {
                         ingredients.map(ingredient => {
-                            return <Ingredient register={register} ingredient={ingredient} key={ingredient}/>
+                            return <Ingredient ingredient={ingredient} key={ingredient}/>
                         })
                     }
                 </div>
@@ -141,7 +168,7 @@ function CreateRecipe() {
                     </label>
                     {
                         instructions.map(instruction => {
-                            return <Instruction register={register} instruction={instruction} key={instruction}/>
+                            return <Instruction instruction={instruction} key={instruction}/>
                         })
                     }
 
@@ -150,7 +177,7 @@ function CreateRecipe() {
                 <div>
                     <label className="label">URL of image</label>
                     <input type="input"
-                           {...register("url")}
+                           name="url"
                            placeholder="Type here URL if needed.."
                            className="input input-bordered w-full hover:bg-slate-50"
                     />
@@ -159,7 +186,7 @@ function CreateRecipe() {
                 <div>
                     <label className="label">Upload image</label>
                     <input type='file'
-                           {...register("file", {})}
+                           name="file"
                            className="block w-full text-sm text-slate-500
                        file:mr-4 file:py-2 file:px-4
                        file:square file:border-0

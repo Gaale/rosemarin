@@ -1,4 +1,4 @@
-const baseDBUrl = 'http://localhost:3001/recipes'
+const baseDBUrl = 'http://localhost:3001/recipes';
 
 export const getMyRecipes = async () => {
     return await fetch(baseDBUrl)

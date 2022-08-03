@@ -23,7 +23,6 @@ import Logout from "./components/Logout";
 
 function App() {
     const [recipes, setRecipes] = useState([]);
-    const [categories, setCategories] = useState([]);
     const [myRecipes, setMyRecipes] = useState([]);
     const [ids, setIds] = useState([])
     const [items, setItems] = useState([]);
@@ -39,20 +38,15 @@ function App() {
     }, [])
 
     useEffect(() => {
-        // getRandomRecipe()
-        //     .then(data => setRecipes(data))
-        //     .catch(err => console.log.bind(err))
-        setRecipes(getRandomRecipe());
+        getRandomRecipe()
+            // .then(recipes => console.log(recipes))
+            .then(data => setRecipes(data.results))
+            .catch(err => console.log.bind(err))
+        // setRecipes(getRandomRecipe());
     }, []);
 
-    // useEffect(() => {
-    //     getCategory()
-    //         .then(cats => setCategories(cats.categories))
-    //         .catch(err => console.log.bind(err))
-    // }, []);
 
     useEffect(() => {
-        if(isAuthenticated){
             getMyRecipes()
                 .then(recipes => recipes.map(el => setIds(prev => {
                     let id = el.id;
@@ -61,16 +55,13 @@ function App() {
                     return [...filtered, {id, id_tasty}]
                 })))
                 .catch(err => console.log.bind(err))
-        }
     }, []);
 
     useEffect(() => {
-        if(isAuthenticated){
             getMyRecipes()
                 // .then(recipes => console.log(recipes))
                 .then(recipes => setMyRecipes(recipes))
                 .catch(err => console.log.bind(err))
-        }
     }, [ids])
 
 

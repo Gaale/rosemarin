@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {postItem} from "../Utils/apiDBServiceShoppingList";
+import {getMyShoppingList, postItem} from "../Utils/apiDBServiceShoppingList";
 
 
 const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
@@ -11,17 +11,13 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
     const {id} = useParams();
 
     useEffect(() => {
-        if (id) {
-            const result = recipes.find(res => +id === res.id);
-            setRecipe(result);
-        } else setRecipe({})
+        const result = recipes.find(res => +id === res.id);
+        setRecipe(result);
     }, [])
 
     useEffect(() => {
-        if (id) {
-            const result = myRecipes.find(res => +id === res.id);
-            setMyRecipe(result);
-        } else setRecipe({})
+        const result = myRecipes.find(res => +id === res.id);
+        setMyRecipe(result);
     }, [])
 
     const addHandlerShoppingList = (data) => {
@@ -106,17 +102,17 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
                 </div>
                 <h3 className="font-rufina-bold block text-center">Instructions</h3>
                 {
-                    (recipe) ?
+                    recipe ?
                         recipe.instructions?.map((instr, i) => <p className="w-5/6 m-auto" key={i}>{instr.display_text}</p>) :
-                        myRecipe.Instructions.map((instr, i) => <p className="w-5/6 m-auto" key={i}>{instr.text}</p>)
+                        myRecipe.Instructions?.map((instr, i) => <p className="w-5/6 m-auto" key={i}>{instr.text}</p>)
                 }
                 {
-                    recipe.renditions ? recipe.renditions.map((url, i) => <a key={i}
+                    myRecipe ? null : recipe.renditions ? recipe.renditions?.map((url, i) => <a key={i}
                                                                              className="link-secondary text-center" href={url.url} target="_blank">{url.url}</a>,<br />) : <span></span>
                 }
-                {/*<div className="card-actions justify-end">*/}
-                {/*    <button className="btn btn-warning">Details</button>*/}
-                {/*</div>*/}
+                <div className="card-actions justify-end">
+                    <button className="btn btn-warning">Details</button>
+                </div>
             </div>
         </div>
         </>

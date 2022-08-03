@@ -17,6 +17,7 @@ export const postItem = async (recipe) => {
 }
 
 export const deleteItem = async (id) => {
+    console.log(id);
     return fetch(baseDBUrl, {
         method: 'DELETE',
         headers: { 'Content-type': 'application/json' },

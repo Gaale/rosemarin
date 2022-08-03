@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-// import {useForm} from "react-hook-form";
+import React, {useRef, useState} from "react";
 import TopSection from "./TopSection";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Instruction from "./Instruction";
@@ -11,61 +10,48 @@ function CreateRecipe() {
     const [ingredients, setIngredients] = useState(['1-ingredient']);
     const [instructions, setInstructions] = useState(['1-instruction']);
 
-    // const {
-    //     register,
-    //     handleSubmit,
-    //     formState: {errors}
-    // } = useForm({mode: "onBlur"});
-
-    // const onSubmit = ({title, description, url, file, ...rest}) => {
-    //     const subInstructions = [];
-    //     const tmpIngredients = [];
-    //     // const subIngredients = [];
-    //     for(let [key, value] of Object.entries(rest)){
-    //         if(key.includes('instruction')) instructions.push({text: value});
-    //         if(key.includes('ingredient')) tmpIngredients.push({key, value});
-    //     }
-    //     // const file = files[0];
-    //     // const formData = new FormData();
-    //     // formData.append('file', file);
-    //
-    //     console.log(file);
-    //     const newRecipe = {
-    //         title: title,
-    //         description: description,
-    //         img_url: url || null,
-    //         file: file,
-    //         img_alt_text: title,
-    //         ingredients: [{ name: "water"}],
-    //         instructions: subInstructions
-    //     }
-    //     postRecipe(newRecipe)
-    //         .then(res => console.log(res))
-    //         .catch(error => console.log(error))
-    // };
+    const form = useRef(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const subInstructions = [];
-        const tmpIngredients = [];
-        // const subIngredients = [];
-        // for(let [key, value] of Object.entries(rest)){
-        //     if(key.includes('instruction')) instructions.push({text: value});
-        //     if(key.includes('ingredient')) tmpIngredients.push({key, value});
-        // }
-        // const file = files[0];
-        // const formData = new FormData();
-        // formData.append('file', file);
+        let subInstructions = [];
+        let tmpIngredients = [];
+        const formData = new FormData(form.current);
 
-console.log(e.target[7].files[0]);
+        for(let [key, value] of formData.entries()) {
+            if(key.includes('instruction')) subInstructions.push({text: value});
+        }
+
+        const map = new Map(formData.entries());
+        map.forEach((value, key) => {
+            if(!key.includes('ingredient')) map.delete(key)
+        })
+
+        const tmpMap = new Map();
+        for(let i = 0; i < map.size; i++) {
+            map.forEach((value, key) => {
+                if(key.includes(`${i}`)) tmpMap.set(key.split('-')[0], value);
+            })
+            tmpIngredients.push(Object.fromEntries(tmpMap));
+        }
+
+        tmpIngredients = tmpIngredients.reduce((o, i) => {
+            if (!o.find(v => v.name == i.name)) {
+                o.push(i);
+            }
+            return o;
+        }, []);
+
+        tmpIngredients.shift();
+
         const newRecipe = {
             title: e.target.title.value,
             description: e.target.description.value,
             img_url: e.target.url.value || null,
-            files: e.target[7].files[0],
+            // files: e.target[7].files[0] || null,
             img_alt_text: e.target.title.value,
-            ingredients: [{ name: "water"}],
-            instructions: [{ text: "water"}]
+            ingredients: tmpIngredients,
+            instructions: subInstructions
         }
         postRecipe(newRecipe)
             .then(res => console.log(res))
@@ -75,7 +61,7 @@ console.log(e.target[7].files[0]);
         e.target.description.value = '';
         e.target.url.value = '';
         e.target.title = '';
-    };
+    }
 
 
     const addHandlerInstruction = () => {
@@ -113,7 +99,7 @@ console.log(e.target[7].files[0]);
     return (
         <>
             <TopSection></TopSection>
-            <form encType='multipart/form-data' onSubmit={handleSubmit} className='w-2/3 m-auto form-control prose lg:prose-xl mb-40'>
+            <form ref={form} encType='multipart/form-data' onSubmit={handleSubmit} className='w-2/3 m-auto form-control prose lg:prose-xl mb-40'>
                 <h2 className="m-auto font-rufina-bold">Create your own recipe</h2>
                 <div>
                     <label className="label">Title</label>

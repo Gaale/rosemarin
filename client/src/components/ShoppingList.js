@@ -1,8 +1,15 @@
-import React from 'react';
-import {deleteItem} from "../Utils/apiDBServiceShoppingList";
+import React, {useEffect} from 'react';
+import {deleteItem, getMyShoppingList} from "../Utils/apiDBServiceShoppingList";
 
 
 const ShoppingList = ({items, setItems}) => {
+
+    useEffect(() => {
+        getMyShoppingList()
+            // .then(recipes => console.log(recipes))
+            .then(itemsSL => setItems(itemsSL))
+            .catch(err => console.log.bind(err))
+    }, [])
 
     const delItemHandler = (id) => {
         deleteItem({id})

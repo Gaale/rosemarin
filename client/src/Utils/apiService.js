@@ -6,7 +6,7 @@ import { recipeCache } from '../data';
 // };
 // const baseURL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20';
 
-export const getRandomRecipe = (tag) => {
+export const getRandomRecipe = async (tag) => {
   // let tagURL = '';
   // if (tag) tagURL = `&tags=${tag}`;
 

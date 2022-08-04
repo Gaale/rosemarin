@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useState } from 'react';
 import { loginFields } from "../constants/formFields";
 import FormAction from "./FormAction";
@@ -6,9 +7,13 @@ import Input from "./Input";
 import { useNavigate } from 'react-router-dom';
 import apiUserService from "../Utils/apiUserService";
 import auth from "../Utils/Auth";
+import {Login} from '../Types'
 
 const fields=loginFields;
-let fieldsState = {};
+let fieldsState: Login = {
+    email: '',
+    password: ''
+};
 fields.forEach(field=>fieldsState[field.id]='');
 
 function LoginComponent(props){

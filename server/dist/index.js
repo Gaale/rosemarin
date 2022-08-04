@@ -1,0 +1,51 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+const express = require('express');
+const cors = require('cors');
+const sequelize = require('./models');
+const Router = require('./router.js');
+const app = express();
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+};
+const session = require('express-session');
+const maxAge = parseInt(process.env.MAX_AGE) || 3600000;
+const secret = process.env.SESSION_SECRET || 'secret123';
+const PORT = 3001;
+app.use(cors(corsOptions));
+app.use(express.json());
+const fileUpload = require('express-fileupload');
+app.use(fileUpload({
+    createParentPath: true,
+}));
+app.use(session({
+    path: '/',
+    secret: secret,
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        httpOnly: true,
+        maxAge: maxAge,
+    },
+}));
+app.use(Router);
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield sequelize.sync({ force: false });
+        app.listen(PORT, () => {
+            console.log(`Server is running on http://localhost:${PORT}.`);
+        });
+    }
+    catch (err) {
+        console.log('error in server: ', err);
+    }
+}))();

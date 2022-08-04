@@ -99,7 +99,7 @@ function CreateRecipe() {
 
     return (
         <>
-            <TopSection></TopSection>
+            <TopSection />
             <form ref={form} encType='multipart/form-data' onSubmit={handleSubmit} className='w-2/3 m-auto form-control prose lg:prose-xl mb-40'>
                 <h2 className="m-auto font-rufina-bold">Create your own recipe</h2>
                 <div>

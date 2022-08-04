@@ -11,6 +11,7 @@ const ShoppingList = ({ items, setItems }) => {
       // .then(recipes => console.log(recipes))
       .then((itemsSL) => setItems(itemsSL))
       .catch((err) => console.log.bind(err));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const delItemHandler = (id) => {

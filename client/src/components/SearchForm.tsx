@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { getRandomRecipe } from '../Utils/apiService';
 import { options } from '../data';
 import { useNavigate } from 'react-router-dom';
 
-const SearchForm = ({ setRecipes, categories }) => {
+const SearchForm = ({ setRecipes }) => {
   const navigate = useNavigate();
 
   function searchHandler(event) {

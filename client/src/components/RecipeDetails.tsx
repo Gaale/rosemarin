@@ -1,23 +1,42 @@
-import React, {useContext, useEffect, useState} from 'react';
+import * as React from 'react';
+import { useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {getMyShoppingList, postItem} from "../Utils/apiDBServiceShoppingList";
+import { postItem} from "../Utils/apiDBServiceShoppingList";
+import {FontAwesome} from '@types/react-fontawesome'
+
 
 
 const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
-    const [recipe, setRecipe] = useState({});
-    const [myRecipe, setMyRecipe] = useState({});
+    const [recipe, setRecipe] = useState({
+        name: '',
+        thumbnail_url: '',
+        description: '',
+        sections: [],
+        instructions: [],
+        renditions: [],
+    });
+    const [myRecipe, setMyRecipe] = useState({
+        title: '',
+        img_url: '',
+        img_data: 0,
+        description: '',
+        Ingredients: [],
+        Instructions: [],
+    });
 
     const {id} = useParams();
 
     useEffect(() => {
-        const result = recipes.find(res => +id === res.id);
+        const result = recipes.find(res => +id! === res.id);
         setRecipe(result);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-        const result = myRecipes.find(res => +id === res.id);
+        const result = myRecipes.find(res => +id! === res.id);
         setMyRecipe(result);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const addHandlerShoppingList = (data) => {
@@ -34,7 +53,7 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
     return (
         <>
         <div className="h-[300px] flex justify-between items-center">
-            <div className="bg-top-img3 w-full h-full bg-auto bg-no-repeat bg-center bg-cover"></div>
+            <div className="bg-top-img3 w-full h-full bg-auto bg-no-repeat bg-center"></div>
         </div>
         <div className="bg-base-100 shadow-xl max-w-screen-xl m-auto my-20 prose lg:prose-xl">
             <h2 className="card-title font-rufina-bold block text-center">{recipe ? recipe.name : myRecipe.title}</h2>
@@ -91,7 +110,7 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
                                         <td>{ingr.quantity}</td>
                                         <td>{ingr.unit}</td>
                                         <td><FontAwesomeIcon
-                                            icon="fa-solid fa-plus"
+                                            icon='fa-solid fa-plus'
                                             className="text-warning transition-all hover:text-2xl ml-10"
                                             onClick={() => addHandlerShoppingList({name: ingr.name, quantity: ingr.quantity, unit: ingr.unit})}
                                         /></td>

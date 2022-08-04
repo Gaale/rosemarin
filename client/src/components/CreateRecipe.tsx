@@ -1,4 +1,5 @@
-import React, {useRef, useState} from "react";
+import * as React from 'react'
+import {useRef, useState} from "react";
 import TopSection from "./TopSection";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Instruction from "./Instruction";
@@ -10,13 +11,13 @@ function CreateRecipe() {
     const [ingredients, setIngredients] = useState(['1-ingredient']);
     const [instructions, setInstructions] = useState(['1-instruction']);
 
-    const form = useRef(null);
+    const form = useRef<HTMLFormElement>(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let subInstructions = [];
-        let tmpIngredients = [];
-        const formData = new FormData(form.current);
+        let subInstructions:String[] = [];
+        let tmpIngredients:String[] = [];
+        const formData = new FormData(form.current!);
 
         for(let [key, value] of formData.entries()) {
             if(key.includes('instruction')) subInstructions.push({text: value});

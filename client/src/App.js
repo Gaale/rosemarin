@@ -15,7 +15,7 @@ import { getMyShoppingList } from './Utils/apiDBServiceShoppingList';
 import LoginPage from './components/Login.tsx';
 import SignupPage from './components/Signup';
 import auth from './Utils/Auth';
-import Logout from './components/Logout';
+import Logout from './components/Logout.tsx';
 
 function App() {
   const [recipes, setRecipes] = useState([]);

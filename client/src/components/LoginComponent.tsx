@@ -1,37 +1,42 @@
+import * as React from 'react';
 import { useState } from 'react';
-import { signupFields } from "../constants/formFields"
+import { loginFields } from "../constants/formFields";
 import FormAction from "./FormAction";
+import FormExtra from "./FormExtra";
 import Input from "./Input";
+import { useNavigate } from 'react-router-dom';
 import apiUserService from "../Utils/apiUserService";
 import auth from "../Utils/Auth";
-import { useNavigate } from 'react-router-dom';
+import {Login} from '../Types'
 
+const fields=loginFields;
+let fieldsState: Login = {
+    email: '',
+    password: ''
+};
+fields.forEach(field=>fieldsState[field.id]='');
 
-const fields=signupFields;
-let fieldsState={};
-
-fields.forEach(field => fieldsState[field.id]='');
-
-function SignupComponent(props){
-    const [signupState,setSignupState]=useState(fieldsState);
+function LoginComponent(props){
+    const [loginState,setLoginState]=useState(fieldsState);
     const [errorMessage, setErrorMessage] = useState('');
 
     const navigate = useNavigate();
 
-
-    const handleChange=(e)=>setSignupState({...signupState,[e.target.id]:e.target.value});
+    const handleChange=(e)=>{
+        setLoginState({...loginState,[e.target.id]:e.target.value})
+    }
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        createAccount()
+        authenticateUser();
     }
 
-    //handle Signup API Integration here
-    const createAccount=()=>{
-        apiUserService.register(signupState)
+    //Handle Login API Integration here
+    const authenticateUser = () =>{
+        apiUserService.login(loginState)
             .then(res => {
                 if(!res) {
-                    setErrorMessage('Account already exists. Please try again.');
+                    setErrorMessage('Incorrect login information.')
                 } else {
                     // This sets isAuthenticated = true and redirects to profile
                     props.setIsAuthenticated(true);
@@ -39,25 +44,21 @@ function SignupComponent(props){
                 }
             })
             .catch(err => console.log(err))
-    };
+    }
 
     const validateForm = () => {
-        return (
-            !signupState.email || !signupState.password || !signupState.name
-        );
+        return !loginState.email || !loginState.password;
     };
-
-
 
     return(
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            <div className="">
+            <div className="-space-y-px">
                 {
                     fields.map(field=>
                         <Input
                             key={field.id}
                             handleChange={handleChange}
-                            value={signupState[field.id]}
+                            value={loginState[field.id]}
                             labelText={field.labelText}
                             labelFor={field.labelFor}
                             id={field.id}
@@ -69,11 +70,13 @@ function SignupComponent(props){
 
                     )
                 }
-                <FormAction handleSubmit={handleSubmit} text="Signup" validateForm={validateForm}/>
             </div>
+
+            <FormExtra/>
+            <FormAction handleSubmit={handleSubmit} text="Login" validateForm={validateForm}/>
             <div className="alert-error">{errorMessage}</div>
         </form>
     )
 }
 
-export default SignupComponent;
+export default LoginComponent;

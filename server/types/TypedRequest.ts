@@ -1,3 +1,5 @@
-export interface TypedRequestBody<T> extends Express.Request {
-    body: T
+import { Request } from 'express';
+
+export interface TypedRequest<T> extends Request {
+  ResBody: T;
 }

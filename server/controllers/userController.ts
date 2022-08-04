@@ -1,21 +1,27 @@
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+import bcrypt from 'bcryptjs';
+import { TypedRequest } from '../types/TypedRequest';
+import { User } from '../types/User';
+import { Response, Request } from 'express';
 
-const createUser = async (req: Request, res: Response) => {
+const createUser = async (req: TypedRequest<User>, res: Response) => {
   try {
-    const pass: String = req.body.password;
+    const pass = req.body.password;
     const salt = bcrypt.genSaltSync(10);
     const password = bcrypt.hashSync(pass, salt);
 
-    const user = await User.findAll({ where: { email: req.body.email } });
-    if (!user[0]) {
-      const result = await User.create({
+    const user: User | undefined = await User.findOne({
+      where: { email: req.body.email },
+    });
+    if (!user) {
+      const result: User = await User.create({
         name: req.body.name,
         email: req.body.email,
         password: password,
       });
-      req.session.sid = result.id;
-      res.status(201).send('Success');
+      req.session.uid = result.id;
+      res.status(201);
+      res.send('Success');
     } else {
       res.status(400).send('Account already exists.');
     }
@@ -25,14 +31,14 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
-const loginUser = async (req: Request, res: Response) => {
+const loginUser = async (req: TypedRequest<User>, res: Response) => {
   try {
-    const pass = req.body.password;
+    const pass = req.body.password!;
     const user = await User.findAll({ where: { email: req.body.email } });
     console.log(user[0].password);
     if (user[0]) {
       if (bcrypt.compareSync(pass, user[0].password)) {
-        req.session.sid = user.id;
+        req.session.id = user.id;
         res.status(200);
         res.send(user);
       } else {
@@ -49,7 +55,7 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-const profileUser = async (req: Request, res: Response) => {
+const profileUser = async (req: TypedRequest<User>, res: Response) => {
   try {
     res.status(200).send(req.user);
   } catch (err) {

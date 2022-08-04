@@ -1,10 +1,25 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { createUser, loginUser, profileUser, logoutUser} = require('./controllers/userController');
-const {createRecipe, removeRecipe, getAllRecipes, updateRecipe} = require("./controllers/recipeController");
-const fileMiddleware = require("./middlewares/uploadFileMiddleware");
-const {addItem, updateItem, removeItem, getAllItems} = require("./controllers/shoppingListController");
-const authMiddleware = require("./middlewares/authMiddleware");
+const {
+  createUser,
+  loginUser,
+  profileUser,
+  logoutUser,
+} = require('./controllers/userController');
+const {
+  createRecipe,
+  removeRecipe,
+  getAllRecipes,
+  updateRecipe,
+} = require('./controllers/recipeController');
+const fileMiddleware = require('./middlewares/uploadFileMiddleware');
+const {
+  addItem,
+  updateItem,
+  removeItem,
+  getAllItems,
+} = require('./controllers/shoppingListController');
+const authMiddleware = require('./middlewares/authMiddleware');
 
 router.post('/register', createUser);
 router.post('/login', loginUser);
@@ -22,7 +37,11 @@ router.delete('/items', removeItem);
 router.get('/items', getAllItems);
 
 router.get('*', function (req, res) {
-    res.status(404).send("<h1 style='margin: 50px auto; display: flex; justify-content: center'>Page Not found</h1>");
+  res
+    .status(404)
+    .send(
+      "<h1 style='margin: 50px auto; display: flex; justify-content: center'>Page Not found</h1>"
+    );
 });
 
 module.exports = router;

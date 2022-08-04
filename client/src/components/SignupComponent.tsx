@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useState } from 'react';
 import { signupFields } from "../constants/formFields"
 import FormAction from "./FormAction";
@@ -5,10 +6,15 @@ import Input from "./Input";
 import apiUserService from "../Utils/apiUserService";
 import auth from "../Utils/Auth";
 import { useNavigate } from 'react-router-dom';
+import {Signup} from '../Types'
 
 
 const fields=signupFields;
-let fieldsState={};
+let fieldsState: Signup={
+    name: '',
+    email: '',
+    password: '',
+};
 
 fields.forEach(field => fieldsState[field.id]='');
 

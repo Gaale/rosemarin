@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Heart from '../Heart';
+import { MyRecipe, RecipeType } from '../../types/RecipeTypes';
 
-const Recipe = ({ recipe, className, setIds, ids }) => {
+type Props = {
+	recipe: MyRecipe & RecipeType;
+	className: string;
+	setIds: (ids: Number[]) => void;
+	ids: Number[];
+};
+
+const Recipe = ({ recipe, className, setIds, ids }: Props) => {
 	return (
 		<li className={className}>
 			<figure>
@@ -22,7 +30,7 @@ const Recipe = ({ recipe, className, setIds, ids }) => {
 					)}
 
 					<Link
-						to={/recipes/ + (recipe.id_tasty || recipe.id)}
+						to={`/recipes/` + (recipe.id_tasty || recipe.id)}
 						className="btn btn-warning font-rufina-regular"
 					>
 						Details

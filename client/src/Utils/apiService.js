@@ -17,5 +17,18 @@ export const getRandomRecipe = async (tag) => {
 	// return await fetch(`${baseURL}${tagURL}`, options)
 	// 	.then(response => response.json())
 	// 	.catch(err => console.error.bind(err));
+	recipeCache.forEach((recipe) => {
+		console.log({
+			id: recipe.id,
+			name: recipe.name,
+			description: recipe.description,
+			img_url: recipe.thumbnail_url,
+			total_time: recipe.total_time_minutes,
+			// ingredients: recipe.
+		});
+
+		console.log('=====================================================================');
+	}); //TITLE
+
 	return recipeCache;
 };

@@ -9,7 +9,7 @@ import CreateRecipe from './components/create-recipe/CreateRecipe';
 import ShoppingList from './components/ShoppingList';
 import Menu from './components/Menu';
 import WeeklyMenu from './components/WeeklyMenu';
-import RecipeDetails from './components/RecipeDetails';
+import RecipeDetails from './components/recipe-lists/RecipeDetails';
 import { getMyRecipes } from './Utils/apiDBService';
 import { getMyShoppingList } from './Utils/apiDBServiceShoppingList';
 import LoginPage from './components/auth/Login';
@@ -19,6 +19,7 @@ import Logout from './components/auth/Logout';
 
 function App() {
 	const [recipes, setRecipes] = useState([]);
+
 	const [myRecipes, setMyRecipes] = useState([]);
 	const [ids, setIds] = useState([]);
 	const [items, setItems] = useState([]);

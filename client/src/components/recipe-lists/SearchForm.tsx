@@ -2,10 +2,10 @@ import React, { FormEvent, useState } from 'react';
 import { getRandomRecipe } from '../../Utils/apiService';
 import { options } from '../../data';
 import { useNavigate } from 'react-router-dom';
-import { MyRecipe, RecipeType } from '../../types/RecipeTypes';
+import { GeneralRecipe, MyRecipe, RecipeType } from '../../types/RecipeTypes';
 
 type Props = {
-	setRecipes: (recipes: MyRecipe[] & RecipeType[]) => void;
+	setRecipes: (recipes: GeneralRecipe[]) => void;
 };
 
 const SearchForm = ({ setRecipes /*categories*/ }: Props) => {
@@ -15,7 +15,7 @@ const SearchForm = ({ setRecipes /*categories*/ }: Props) => {
 		event.preventDefault();
 		getRandomRecipe(event.currentTarget.value)
 			// .then(recipes => console.log(recipes.results))
-			.then((data: MyRecipe[] & RecipeType[]): void => {
+			.then((data: GeneralRecipe[]): void => {
 				setRecipes(data);
 			})
 			.catch((err) => console.log.bind(err));

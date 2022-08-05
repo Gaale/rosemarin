@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Heart from '../Heart';
-import { MyRecipe, RecipeType } from '../../types/RecipeTypes';
+import { GeneralRecipe, MyRecipe, RecipeType } from '../../types/RecipeTypes';
 import { CustomId } from '../../types/CustomId';
 
 type Props = {
-	recipe: MyRecipe & RecipeType;
+	recipe: GeneralRecipe;
 	className: string;
 	setIds: (ids: CustomId[]) => void;
 	ids: CustomId[];

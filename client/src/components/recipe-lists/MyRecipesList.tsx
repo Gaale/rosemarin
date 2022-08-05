@@ -4,8 +4,17 @@ import SearchForm from './SearchForm';
 import Recipe from './Recipe';
 import { getMyRecipes } from '../../Utils/apiDBService';
 import recipe from './Recipe';
+import { GeneralRecipe, MyRecipe, RecipeType } from '../../types/RecipeTypes';
+import { CustomId } from '../../types/CustomId';
+type Props = {
+	myRecipes: GeneralRecipe[];
+	setMyRecipes: (recipesArr: GeneralRecipe[]) => void;
+	setRecipes: (recipesArr: GeneralRecipe[]) => void;
+	setIds: (ids: CustomId[]) => void;
+	ids: CustomId[];
+};
 
-const MyRecipesList = ({ myRecipes, setMyRecipes, setIds, ids, setRecipes }) => {
+const MyRecipesList = ({ myRecipes, setMyRecipes, setIds, ids, setRecipes }: Props) => {
 	useEffect(() => {
 		getMyRecipes()
 			// .then(recipes => console.log(recipes))

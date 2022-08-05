@@ -25,3 +25,5 @@ export type RecipeType = {
 	instructions: Instruction[]; //Change
 	// instructions: Ingredient[]; //Change
 };
+
+export type GeneralRecipe = MyRecipe & RecipeType;

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { faHeart } from '@fortawesome/fontawesome-free-solid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { deleteRecipe, getMyRecipes, postRecipe } from '../Utils/apiDBService';
-import { MyRecipe, RecipeType } from '../types/RecipeTypes';
+import { GeneralRecipe, MyRecipe, RecipeType } from '../types/RecipeTypes';
 import { CustomId } from '../types/CustomId';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 type Props = {
-	recipe: MyRecipe & RecipeType;
+	recipe: GeneralRecipe;
 	setIds: (ids: CustomId[]) => void;
 	ids: CustomId[]; //{id: 6, id_tasty: null}
 };
@@ -50,7 +50,7 @@ const Heart = ({ recipe, setIds, ids }: Props) => {
 				description: recipe.description,
 				img_url: recipe.thumbnail_url,
 				img_alt_text: recipe.name,
-				total_time: recipe.total_time_minutes,
+				// total_time: recipe.total_time_minutes,
 				id_tasty: recipe.id,
 				ingredients: recipe.Ingredients,
 				instructions: recipe.Instructions,

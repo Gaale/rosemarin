@@ -16,7 +16,7 @@ const secret = process.env.SESSION_SECRET || 'secret123';
 const PORT = 3001;
 app.use(cors(corsOptions));
 app.use(express.json());
-const fileUpload = require('express-fileupload');
+import fileUpload from 'express-fileupload';
 app.use(
   fileUpload({
     createParentPath: true,

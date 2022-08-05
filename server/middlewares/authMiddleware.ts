@@ -1,6 +1,7 @@
 const User = require('../models/User.js');
 import { Request, Response, NextFunction } from 'express';
 import { TypedSessionData } from '../types/TypedSession';
+import { User } from '../types/User';
 
 const authMiddleware = async (
   req: Request,

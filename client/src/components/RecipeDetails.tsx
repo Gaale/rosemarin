@@ -3,8 +3,8 @@ import { useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { postItem} from "../Utils/apiDBServiceShoppingList";
-// import {FontAwesome} from '@types/react-fontawesome'
-import { Section, Instruction, Ingredient, Rendition } from '../Types';
+import { Section, Instruction, Ingredient, Rendition, Recipe, MyRecipe } from '../Types';
+import { IconPrefix, IconProp } from '@fortawesome/fontawesome-svg-core';
 
 
 
@@ -16,15 +16,13 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
         sections: [] as Section[] | [],
         instructions: [] as Instruction[] | [],
         renditions: [] as Rendition[] | [],
-    });
+    } as Recipe);
     const [myRecipe, setMyRecipe] = useState({
         title: '',
-        img_url: '',
-        img_data: 0,
         description: '',
         Ingredients: [] as Ingredient[] | [],
         Instructions: [] as Instruction[] | [],
-    });
+    } as MyRecipe);
 
     const {id} = useParams();
 
@@ -61,7 +59,7 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
             <div className="flex">
                 <figure className="max-w-lg ml-10">
                     <img
-                        src={recipe ? recipe.thumbnail_url : myRecipe.img_url ? myRecipe.img_url : myRecipe.img_data ? myRecipe.img_data : "Image"}
+                        src={recipe ? recipe.thumbnail_url! : myRecipe.img_url ? myRecipe.img_url! : myRecipe.img_data ? myRecipe.img_data! : "Image"}
                         alt={recipe ? recipe.name : myRecipe.title}/>
                 </figure>
                 <div>
@@ -92,12 +90,12 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
                                             <td><label className="swap swap-rotate">
                                                 <input type="checkbox" />
                                                 <FontAwesomeIcon
-                                                    icon="fa-solid fa-plus"
+                                                    icon={'fa-solid fa-plus' as IconProp}
                                                     className="swap-on text-warning transition-all hover:text-orange-800 ml-10 justify-center text-xl cursor-pointer"
                                                     onClick={() => addHandlerShoppingList({name: comp.ingredient.name, quantity: comp.measurements[0].quantity, unit: comp.measurements[0].unit.name})}
                                                 />
                                                 <FontAwesomeIcon
-                                                    icon="fa-solid fa-plus"
+                                                    icon={'fa-solid fa-plus' as IconProp}
                                                     className="swap-off text-secondary transition-all hover:text-orange-800 ml-10 justify-center text-xl cursor-pointer"
                                                     onClick={() => addHandlerShoppingList({name: comp.ingredient.name, quantity: comp.measurements[0].quantity, unit: comp.measurements[0].unit.name})}
                                                 />
@@ -111,7 +109,7 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
                                         <td>{ingr.quantity}</td>
                                         <td>{ingr.unit}</td>
                                         <td><FontAwesomeIcon
-                                            icon='fa-solid fa-plus'
+                                            icon={'fa-solid fa-plus' as IconProp}
                                             className="text-warning transition-all hover:text-2xl ml-10"
                                             onClick={() => addHandlerShoppingList({name: ingr.name, quantity: ingr.quantity, unit: ingr.unit})}
                                         /></td>

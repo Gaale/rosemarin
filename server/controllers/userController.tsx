@@ -1,7 +1,8 @@
+import { Request, Response } from 'express';
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
-const createUser = async (req, res) => {
+const createUser = async (req: Request, res: Response) => {
     try {
         const pass = req.body.password;
         const salt = bcrypt.genSaltSync(10);
@@ -25,7 +26,7 @@ const createUser = async (req, res) => {
     }
 }
 
-const loginUser = async (req, res) => {
+const loginUser = async (req: Request, res: Response) => {
     try {
         const pass = req.body.password;
         const user = await User.findAll({ where: { email: req.body.email } });
@@ -50,7 +51,7 @@ const loginUser = async (req, res) => {
 
 };
 
-const profileUser = async (req, res) => {
+const profileUser = async (req: Request, res: Response) => {
     try {
         res.status(200).send(req.user);
     } catch (err) {
@@ -60,7 +61,7 @@ const profileUser = async (req, res) => {
 
 };
 
-const logoutUser = (req, res) => {
+const logoutUser = (req:Request, res: Response) => {
     req.session.destroy((e) => {
         if(e) res.status(500).send('Something went wrong');
         else {

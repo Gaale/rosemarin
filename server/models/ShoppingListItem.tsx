@@ -1,4 +1,4 @@
-const sequelize = require('./index');
+import sequelize from './index';
 const {DataTypes} = require('sequelize');
 
 const ShoppingListItem = sequelize.define('ShoppingListItem', {

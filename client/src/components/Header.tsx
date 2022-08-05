@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+const Logo = require('../images/rosemary.png');
+
 
 function Header({ heading, paragraph, linkName, linkUrl = '#' }) {
   return (
@@ -7,7 +9,7 @@ function Header({ heading, paragraph, linkName, linkUrl = '#' }) {
     //     <div className="max-w-md w-full space-y-8">
     <div className="mb-10">
       <div className="flex justify-center">
-        <img alt="" className="h-14 w-14" src="../images/rosemary.png" />
+        <img alt="Rosemary logo" className="h-14 w-14" src={Logo} />
       </div>
       <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
         {heading}

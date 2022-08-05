@@ -3,7 +3,8 @@ import { useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { postItem} from "../Utils/apiDBServiceShoppingList";
-import {FontAwesome} from '@types/react-fontawesome'
+// import {FontAwesome} from '@types/react-fontawesome'
+import { Section, Instruction, Ingredient, Rendition } from '../Types';
 
 
 
@@ -12,17 +13,17 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
         name: '',
         thumbnail_url: '',
         description: '',
-        sections: [],
-        instructions: [],
-        renditions: [],
+        sections: [] as Section[] | [],
+        instructions: [] as Instruction[] | [],
+        renditions: [] as Rendition[] | [],
     });
     const [myRecipe, setMyRecipe] = useState({
         title: '',
         img_url: '',
         img_data: 0,
         description: '',
-        Ingredients: [],
-        Instructions: [],
+        Ingredients: [] as Ingredient[] | [],
+        Instructions: [] as Instruction[] | [],
     });
 
     const {id} = useParams();
@@ -126,8 +127,8 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
                         myRecipe.Instructions?.map((instr, i) => <p className="w-5/6 m-auto" key={i}>{instr.text}</p>)
                 }
                 {
-                    myRecipe ? null : recipe.renditions ? recipe.renditions?.map((url, i) => <a key={i}
-                                                                             className="link-secondary text-center" href={url.url} target="_blank">{url.url}</a>,<br />) : <span></span>
+                    myRecipe ? null : recipe.renditions ? recipe.renditions?.map((url, i) =>
+                    <a key={i} className="link-secondary text-center" href={url.url} target="_blank" rel="noopener noreferrer">{url.url}</a>,<br />) : <span></span>
                 }
                 <div className="card-actions justify-end">
                     <button className="btn btn-warning">Details</button>

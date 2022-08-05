@@ -1,6 +1,7 @@
 const ShoppingListItem = require('../models/ShoppingListItem')
+import { Request, Response } from 'express';
 
-const addItem = async (req, res) => {
+const addItem = async (req: Request, res: Response) => {
     try {
         const result = await ShoppingListItem.create({
             name: req.body.name,
@@ -16,7 +17,7 @@ const addItem = async (req, res) => {
     }
 }
 
-const updateItem = async (req, res) => {
+const updateItem = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         await ShoppingListItem.destroy({where: {id: id}});
@@ -34,7 +35,7 @@ const updateItem = async (req, res) => {
     }
 }
 
-const removeItem = async (req, res) => {
+const removeItem = async (req: Request, res: Response) => {
     try {
         const id = req.body.id;
         await ShoppingListItem.destroy({where: {id: id}});
@@ -45,7 +46,7 @@ const removeItem = async (req, res) => {
     }
 }
 
-const getAllItems = async (req, res) => {
+const getAllItems = async (req: Request, res: Response) => {
     try {
         //todo const userId = req.session.sid;
         const userId = 1;

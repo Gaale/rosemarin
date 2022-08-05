@@ -1,11 +1,10 @@
 const User = require('../models/User');
 import bcrypt from 'bcryptjs';
-import { TypedRequest } from '../types/TypedRequest';
 import { User } from '../types/User';
 import { Response, Request } from 'express';
 import { TypedSessionData } from '../types/TypedSession';
 
-const createUser = async (req: TypedRequest<User>, res: Response) => {
+const createUser = async (req: Request<any, any, User>, res: Response) => {
   try {
     const pass = req.body.password;
     const salt = bcrypt.genSaltSync(10);
@@ -33,7 +32,7 @@ const createUser = async (req: TypedRequest<User>, res: Response) => {
   }
 };
 
-const loginUser = async (req: TypedRequest<User>, res: Response) => {
+const loginUser = async (req: Request<any, any, User>, res: Response) => {
   try {
     const pass = req.body.password!;
     const user = await User.findOne({ where: { email: req.body.email } });
@@ -58,7 +57,7 @@ const loginUser = async (req: TypedRequest<User>, res: Response) => {
   }
 };
 
-const profileUser = async (req: TypedRequest<User>, res: Response) => {
+const profileUser = async (req: Request, res: Response) => {
   try {
     const userRes = { name: req.body.user.name, email: req.body.user.email };
     res.status(200).send(userRes);

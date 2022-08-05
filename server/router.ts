@@ -32,7 +32,6 @@ router.delete('/recipes', removeRecipe);
 router.get('/recipes', getAllRecipes);
 
 router.post('/items', addItem);
-router.put('/items', updateItem);
 router.delete('/items', removeItem);
 router.get('/items', getAllItems);
 
@@ -45,3 +44,5 @@ router.get('*', function (req, res) {
 });
 
 module.exports = router;
+
+// s%3AmWkm4jFWVwS7JCfakGZTPX70RlU0UQvB.PsR0%2F5VIgQSkfS%2Bv0Waeijd2GZ3icVhRq8HcLZiRYcg

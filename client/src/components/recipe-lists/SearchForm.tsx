@@ -11,9 +11,10 @@ type Props = {
 const SearchForm = ({ setRecipes /*categories*/ }: Props) => {
 	const navigate = useNavigate();
 
-	function searchHandler(event: FormEvent<HTMLFormElement>) {
+	function searchHandler(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		getRandomRecipe(event.currentTarget.value)
+		const filterValue = (event.currentTarget.elements[0] as HTMLSelectElement).value;
+		getRandomRecipe(filterValue)
 			// .then(recipes => console.log(recipes.results))
 			.then((data: GeneralRecipe[]): void => {
 				setRecipes(data);

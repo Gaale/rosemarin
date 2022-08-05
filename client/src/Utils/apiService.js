@@ -17,14 +17,12 @@ export const getRandomRecipe = async (tag) => {
 	// return await fetch(`${baseURL}${tagURL}`, options)
 	// 	.then(response => response.json())
 	// 	.catch(err => console.error.bind(err));
+
 	const formattedRecipes = [];
 	recipeCache.forEach((recipe) => {
 		try {
-			//FORMAT THE DATA BEFORE ASIGNING
 			if (recipe.sections) {
 				const componentInFormat = recipe.sections.map((element) => {
-					// return ingredientObject
-					// { name, unit, quantity}
 					const ingredients = [];
 					element.components.forEach((comp) => {
 						let name = comp.ingredient.name;
@@ -35,18 +33,15 @@ export const getRandomRecipe = async (tag) => {
 					// console.log(element);
 					return ingredients;
 				});
-
-				console.log('FORMATED INGREDIENTS', componentInFormat);
-
 				let formattedIngredients = [];
 				componentInFormat.forEach((ingArr) => {
 					formattedIngredients = [...formattedIngredients, ...ingArr];
 				});
-
 				formattedRecipes.push({
 					id: recipe.id,
 					name: recipe.name,
 					description: recipe.description,
+					tags: recipe.tags,
 					img_url: recipe.thumbnail_url,
 					total_time: recipe.total_time_minutes,
 					ingredients: formattedIngredients,
@@ -74,7 +69,14 @@ export const getRandomRecipe = async (tag) => {
 			console.log(error);
 		}
 	});
-	return formattedRecipes;
+	console.log(tag);
+	return tag === undefined
+		? formattedRecipes
+		: formattedRecipes.filter((recipe) => {
+				return recipe.tags.some((recipeTag) => {
+					return recipeTag.name === tag;
+				});
+		  });
 };
 
 /*

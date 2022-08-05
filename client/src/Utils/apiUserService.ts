@@ -1,9 +1,8 @@
 const BASE_URL = 'http://localhost:3001';
 
-const apiUserService = {};
 
-apiUserService.register = (user) => {
-    const options = {
+const register = (user) => {
+    const options: RequestInit = {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -13,15 +12,15 @@ apiUserService.register = (user) => {
     };
 
     return fetch(`${BASE_URL}/register`, options)
-        .then(response => {
-            if(response.ok)
-                return response.json();
-        })
-        .catch(err => console.error(err));
+    .then(response => {
+        if(response.ok)
+        return response.json();
+    })
+    .catch(err => console.error(err));
 };
 
-apiUserService.login = (user) => {
-    const options = {
+const login = (user) => {
+    const options: RequestInit = {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -31,29 +30,30 @@ apiUserService.login = (user) => {
     };
 
     return fetch(`${BASE_URL}/login`, options)
-        .then(response => {
-            if(response.ok)
-                return response.json()
-        })
-        .catch(err => console.error(err));
+    .then(response => {
+        if(response.ok)
+        return response.json()
+    })
+    .catch(err => console.error(err));
 };
 
-apiUserService.profile = () => {
+const profile = () => {
     return fetch(`${BASE_URL}/me`,{
         method: 'GET',
         credentials: 'include'
     })
-        .then(response => response.json())
-        .catch(err => console.error(err));
+    .then(response => response.json())
+    .catch(err => console.error(err));
 };
 
-apiUserService.logout = () => {
+const logout = () => {
     return fetch(`${BASE_URL}/logout`, {
         method: 'GET',
         credentials: 'include'
     })
-        .then(response => response.json())
-        .catch(err => console.error(err));
+    .then(response => response.json())
+    .catch(err => console.error(err));
 };
 
+const apiUserService = {register, login, profile, logout}
 export default apiUserService;

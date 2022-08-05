@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 const Ingredient = ({ingredient}) => {
     //todo `${ingredient}`
@@ -9,7 +9,7 @@ const Ingredient = ({ingredient}) => {
                    placeholder="Type here ingredient.."
                    className="input input-bordered w-1/3 hover:bg-slate-50"
             />
-            <input type="text"
+            <input type="number"
                    name={"quantity-"+ingredient}
                    placeholder="quantity.."
                    className="input input-bordered w-1/4 mr-3 mr-3 hover:bg-slate-50"

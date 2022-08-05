@@ -17,5 +17,6 @@ export const getRandomRecipe = (tag) => {
   // return await fetch(`${baseURL}${tagURL}`, options)
   // 	.then(response => response.json())
   // 	.catch(err => console.error.bind(err));
+
   return recipeCache;
 };

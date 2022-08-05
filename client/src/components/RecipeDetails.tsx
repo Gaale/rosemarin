@@ -1,23 +1,41 @@
-import React, {useContext, useEffect, useState} from 'react';
+import * as React from 'react';
+import { useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {getMyShoppingList, postItem} from "../Utils/apiDBServiceShoppingList";
+import { postItem} from "../Utils/apiDBServiceShoppingList";
+import { Section, Instruction, Ingredient, Rendition, Recipe, MyRecipe } from '../Types';
+import { IconPrefix, IconProp } from '@fortawesome/fontawesome-svg-core';
+
 
 
 const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
-    const [recipe, setRecipe] = useState({});
-    const [myRecipe, setMyRecipe] = useState({});
+    const [recipe, setRecipe] = useState({
+        name: '',
+        thumbnail_url: '',
+        description: '',
+        sections: [] as Section[] | [],
+        instructions: [] as Instruction[] | [],
+        renditions: [] as Rendition[] | [],
+    } as Recipe);
+    const [myRecipe, setMyRecipe] = useState({
+        title: '',
+        description: '',
+        Ingredients: [] as Ingredient[] | [],
+        Instructions: [] as Instruction[] | [],
+    } as MyRecipe);
 
     const {id} = useParams();
 
     useEffect(() => {
-        const result = recipes.find(res => +id === res.id);
+        const result = recipes.find(res => +id! === res.id);
         setRecipe(result);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-        const result = myRecipes.find(res => +id === res.id);
+        const result = myRecipes.find(res => +id! === res.id);
         setMyRecipe(result);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const addHandlerShoppingList = (data) => {
@@ -34,14 +52,14 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
     return (
         <>
         <div className="h-[300px] flex justify-between items-center">
-            <div className="bg-top-img3 w-full h-full bg-auto bg-no-repeat bg-center bg-cover"></div>
+            <div className="bg-top-img3 w-full h-full bg-auto bg-no-repeat bg-center"></div>
         </div>
         <div className="bg-base-100 shadow-xl max-w-screen-xl m-auto my-20 prose lg:prose-xl">
             <h2 className="card-title font-rufina-bold block text-center">{recipe ? recipe.name : myRecipe.title}</h2>
             <div className="flex">
                 <figure className="max-w-lg ml-10">
                     <img
-                        src={recipe ? recipe.thumbnail_url : myRecipe.img_url ? myRecipe.img_url : myRecipe.img_data ? myRecipe.img_data : "Image"}
+                        src={recipe ? recipe.thumbnail_url! : myRecipe.img_url ? myRecipe.img_url! : myRecipe.img_data ? myRecipe.img_data! : "Image"}
                         alt={recipe ? recipe.name : myRecipe.title}/>
                 </figure>
                 <div>
@@ -72,12 +90,12 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
                                             <td><label className="swap swap-rotate">
                                                 <input type="checkbox" />
                                                 <FontAwesomeIcon
-                                                    icon="fa-solid fa-plus"
+                                                    icon={'fa-solid fa-plus' as IconProp}
                                                     className="swap-on text-warning transition-all hover:text-orange-800 ml-10 justify-center text-xl cursor-pointer"
                                                     onClick={() => addHandlerShoppingList({name: comp.ingredient.name, quantity: comp.measurements[0].quantity, unit: comp.measurements[0].unit.name})}
                                                 />
                                                 <FontAwesomeIcon
-                                                    icon="fa-solid fa-plus"
+                                                    icon={'fa-solid fa-plus' as IconProp}
                                                     className="swap-off text-secondary transition-all hover:text-orange-800 ml-10 justify-center text-xl cursor-pointer"
                                                     onClick={() => addHandlerShoppingList({name: comp.ingredient.name, quantity: comp.measurements[0].quantity, unit: comp.measurements[0].unit.name})}
                                                 />
@@ -91,7 +109,7 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
                                         <td>{ingr.quantity}</td>
                                         <td>{ingr.unit}</td>
                                         <td><FontAwesomeIcon
-                                            icon="fa-solid fa-plus"
+                                            icon={'fa-solid fa-plus' as IconProp}
                                             className="text-warning transition-all hover:text-2xl ml-10"
                                             onClick={() => addHandlerShoppingList({name: ingr.name, quantity: ingr.quantity, unit: ingr.unit})}
                                         /></td>
@@ -107,8 +125,8 @@ const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
                         myRecipe.Instructions?.map((instr, i) => <p className="w-5/6 m-auto" key={i}>{instr.text}</p>)
                 }
                 {
-                    myRecipe ? null : recipe.renditions ? recipe.renditions?.map((url, i) => <a key={i}
-                                                                             className="link-secondary text-center" href={url.url} target="_blank">{url.url}</a>,<br />) : <span></span>
+                    myRecipe ? null : recipe.renditions ? recipe.renditions?.map((url, i) =>
+                    <a key={i} className="link-secondary text-center" href={url.url} target="_blank" rel="noopener noreferrer">{url.url}</a>,<br />) : <span></span>
                 }
                 <div className="card-actions justify-end">
                     <button className="btn btn-warning">Details</button>

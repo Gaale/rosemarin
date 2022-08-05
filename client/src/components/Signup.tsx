@@ -1,4 +1,5 @@
-import Header from "../components/Header";
+import * as React from "react";
+import Header from "./Header";
 import SignupComponent from "./SignupComponent";
 
 function SignupPage({setIsAuthenticated}) {

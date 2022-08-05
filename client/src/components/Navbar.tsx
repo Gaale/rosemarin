@@ -1,12 +1,10 @@
-import React from 'react';
-import {slide as Menu} from 'react-burger-menu'
+import * as React from 'react';
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {library} from "@fortawesome/fontawesome-svg-core";
 import {faUser} from "@fortawesome/fontawesome-free-regular";
 import {faUserCheck} from "@fortawesome/fontawesome-free-solid";
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-library.add(faUser);
 
 const Navbar = ({isAuthenticated}) => {
 
@@ -52,9 +50,9 @@ const Navbar = ({isAuthenticated}) => {
                     {
                         isAuthenticated ?
                             <Link className="menu-item cursor-pointer" to="/logout">
-                                <FontAwesomeIcon icon={faUserCheck} className="text-2xl cursor-pointer mr-3"/>Logout
+                                <FontAwesomeIcon icon={faUserCheck as IconProp} className="text-2xl cursor-pointer mr-3"/>Logout
                             </Link> :
-                            <Link className="menu-item cursor-pointer" to="/"><FontAwesomeIcon icon={faUser}
+                            <Link className="menu-item cursor-pointer" to="/"><FontAwesomeIcon icon={faUser as IconProp}
                                                                                                className="text-2xl cursor-pointer mr-3"/>
                                 Login</Link>
                     }

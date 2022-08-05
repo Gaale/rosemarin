@@ -37,30 +37,41 @@ function App() {
 		getRandomRecipe()
 			// .then(recipes => console.log(recipes))
 			// .then((data) => setRecipes(data.results)) //This is the one that works for the request to the API
-			.then((data) => setRecipes(data)) //This works for the API service that caches the data
-			.catch((err) => console.log.bind(err));
+			.then((data) => {
+				// console.log(data);
+				console.log(data);
+				setRecipes(data);
+			}) //This works for the API service that caches the data
+			.catch((err) => {
+				console.log(err);
+				console.log('MIERDA');
+			});
 		// setRecipes(getRandomRecipe());
 	}, []);
 
 	useEffect(() => {
 		getMyRecipes()
-			.then((recipes) =>
-				recipes.map((el) =>
+			.then((recipes) => {
+				console.log(recipes);
+				return recipes.map((el) =>
 					setIds((prev) => {
 						let id = el.id;
 						let id_tasty = el.id_tasty;
 						const filtered = prev.filter((e) => e.id_tasty !== el.id_tasty);
 						return [...filtered, { id, id_tasty }];
 					})
-				)
-			)
+				);
+			})
 			.catch((err) => console.log.bind(err));
 	}, []);
 
 	useEffect(() => {
 		getMyRecipes()
 			// .then(recipes => console.log(recipes))
-			.then((recipes) => setMyRecipes(recipes))
+			.then((recipes) => {
+				// console.log(recipes);
+				setMyRecipes(recipes);
+			})
 			.catch((err) => console.log.bind(err));
 	}, [ids]);
 

@@ -3,15 +3,17 @@ import { faHeart } from '@fortawesome/fontawesome-free-solid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { deleteRecipe, getMyRecipes, postRecipe } from '../Utils/apiDBService';
 import { MyRecipe, RecipeType } from '../types/RecipeTypes';
+import { CustomId } from '../types/CustomId';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 type Props = {
 	recipe: MyRecipe & RecipeType;
-	setIds: (ids: Number[]) => void;
-	ids: Number[]; //{id: 6, id_tasty: null}
+	setIds: (ids: CustomId[]) => void;
+	ids: CustomId[]; //{id: 6, id_tasty: null}
 };
 
 const Heart = ({ recipe, setIds, ids }: Props) => {
-	console.log(ids);
+	// console.log(recipe);
 	const [isFavorite, setIsFavorite] = useState(false);
 	const [currentId, setCurrentId] = useState(0);
 
@@ -27,21 +29,21 @@ const Heart = ({ recipe, setIds, ids }: Props) => {
 	const isFavoriteHandler = () => {
 		setIsFavorite(() => !isFavorite);
 		if (!isFavorite) {
-			const instructions = recipe.instructions.map((el) => {
-				let text = el.display_text;
-				return { text };
-			});
-			const ingredients = recipe.sections.map((el) => {
-				let final = [];
-				let res = el.components.map((comp) => {
-					let name = comp.ingredient.name;
-					let unit = comp.measurements[0].unit.name;
-					let quantity = comp.measurements[0].quantity || null;
-					return { name, unit, quantity };
-				});
-				final.push(res);
-				return final.flat();
-			});
+			// const instructions = recipe.instructions.map((el) => {
+			// 	let text = el.display_text;
+			// 	return { text };
+			// });
+			// const ingredients = recipe.sections.map((el) => {
+			// 	let final = [];
+			// 	let res = el.components.map((comp) => {
+			// 		let name = comp.ingredient.name;
+			// 		let unit = comp.measurements[0].unit.name;
+			// 		let quantity = comp.measurements[0].quantity || null;
+			// 		return { name, unit, quantity };
+			// 	});
+			// 	final.push(res);
+			// 	return final.flat();
+			// });
 
 			const newRecipe = {
 				title: recipe.name,
@@ -50,36 +52,39 @@ const Heart = ({ recipe, setIds, ids }: Props) => {
 				img_alt_text: recipe.name,
 				total_time: recipe.total_time_minutes,
 				id_tasty: recipe.id,
-				ingredients: ingredients.flat(),
-				instructions: instructions,
+				ingredients: recipe.Ingredients,
+				instructions: recipe.Instructions,
 			};
 			postRecipe(newRecipe)
 				.then((res) => console.log(res))
 				.catch((error) => console.log(error));
 
-			setIds((prev) => [...prev, { id: currentId, id_tasty: recipe.id }]);
+			// setIds((prev) => [...prev, { id: currentId, id_tasty: recipe.id }]);
+			setIds([...ids, { id: currentId, id_tasty: recipe.id }]);
 		} else {
 			if (window.confirm('You are removing recipe. Are you sure?')) {
 				deleteRecipe({ id: currentId })
 					.then((res) => console.log(res))
 					.catch((error) => console.log(error));
-				setIds((prev) => {
-					const filtered = prev.filter((id) => id.id !== currentId);
-					return [...filtered];
-				});
+
+				setIds(ids.filter((id: CustomId) => id.id !== currentId));
+				// setIds((prev) => {
+				// 	const filtered = prev.filter((id) => id.id !== currentId);
+				// 	return [...filtered];
+				// });
 			}
 		}
 	};
 	return isFavorite ? (
 		<FontAwesomeIcon
 			onClick={isFavoriteHandler}
-			icon={faHeart}
+			icon={faHeart as IconDefinition}
 			className="text-2xl self-center mr-3 link text-error cursor-pointer"
 		/>
 	) : (
 		<FontAwesomeIcon
 			onClick={isFavoriteHandler}
-			icon={faHeart}
+			icon={faHeart as IconDefinition}
 			className="text-2xl self-center mr-3 link-secondary cursor-pointer"
 		/>
 	);

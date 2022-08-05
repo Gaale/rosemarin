@@ -15,10 +15,13 @@ export type MyRecipe = {
 	id_tasty: number;
 	img_alt_text: string;
 	total_time: number;
+	total_time_minutes: number;
 };
 
+//TRANSFORM THIS INTO MY RECIPE TYPE
 export type RecipeType = {
 	name: string;
 	thumbnail_url: string;
-	instructions: string; //Change
+	instructions: Instruction[]; //Change
+	// instructions: Ingredient[]; //Change
 };

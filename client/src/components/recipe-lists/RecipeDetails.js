@@ -4,18 +4,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getMyShoppingList, postItem } from '../../Utils/apiDBServiceShoppingList';
 
 const RecipeDetails = ({ recipes, myRecipes, items, setItems }) => {
+	// if()
+	// console.log(recipes);
+	// console.log(myRecipes);
 	const [recipe, setRecipe] = useState({});
 	const [myRecipe, setMyRecipe] = useState({});
+	// const [recipeDetails, setRecipeDetails] = useState({})
 
 	const { id } = useParams();
+	// console.log(typeof id);
 
 	useEffect(() => {
 		const result = recipes.find((res) => +id === res.id);
+		console.log('OTHER', result);
 		setRecipe(result);
 	}, []);
 
 	useEffect(() => {
 		const result = myRecipes.find((res) => +id === res.id);
+		console.log('MINE', result);
 		setMyRecipe(result);
 	}, []);
 
@@ -30,6 +37,9 @@ const RecipeDetails = ({ recipes, myRecipes, items, setItems }) => {
 			.catch((error) => console.log(error));
 	};
 
+	if (recipe === {} && myRecipe === {}) {
+		return <></>;
+	}
 	return (
 		<>
 			<div className="h-[300px] flex justify-between items-center">
@@ -76,47 +86,28 @@ const RecipeDetails = ({ recipes, myRecipes, items, setItems }) => {
 							</thead>
 							<tbody>
 								{recipe
-									? recipe.sections?.map((section) => {
-											return section.components.map((comp, i) => (
+									? recipe.ingredients?.map((ingr, i) => {
+											console.log(ingr);
+											return (
 												<tr key={i}>
-													<th>{comp.ingredient.name}</th>
-													<td>{comp.measurements[0].quantity}</td>
-													<td>{comp.measurements[0].unit.name}</td>
+													<th>{ingr.name}</th>
+													<td>{ingr.quantity}</td>
+													<td>{ingr.unit}</td>
 													<td>
-														<label className="swap swap-rotate">
-															<input type="checkbox" />
-															<FontAwesomeIcon
-																icon="fa-solid fa-plus"
-																className="swap-on text-warning transition-all hover:text-orange-800 ml-10 justify-center text-xl cursor-pointer"
-																onClick={() =>
-																	addHandlerShoppingList({
-																		name: comp.ingredient.name,
-																		quantity:
-																			comp.measurements[0]
-																				.quantity,
-																		unit: comp.measurements[0]
-																			.unit.name,
-																	})
-																}
-															/>
-															<FontAwesomeIcon
-																icon="fa-solid fa-plus"
-																className="swap-off text-secondary transition-all hover:text-orange-800 ml-10 justify-center text-xl cursor-pointer"
-																onClick={() =>
-																	addHandlerShoppingList({
-																		name: comp.ingredient.name,
-																		quantity:
-																			comp.measurements[0]
-																				.quantity,
-																		unit: comp.measurements[0]
-																			.unit.name,
-																	})
-																}
-															/>
-														</label>
+														<FontAwesomeIcon
+															icon="fa-solid fa-plus"
+															className="text-warning transition-all hover:text-2xl ml-10"
+															onClick={() =>
+																addHandlerShoppingList({
+																	name: ingr.name,
+																	quantity: ingr.quantity,
+																	unit: ingr.unit,
+																})
+															}
+														/>
 													</td>
 												</tr>
-											));
+											);
 									  })
 									: myRecipe.Ingredients.map((ingr, i) => (
 											<tr key={i}>
@@ -145,7 +136,7 @@ const RecipeDetails = ({ recipes, myRecipes, items, setItems }) => {
 					{recipe
 						? recipe.instructions?.map((instr, i) => (
 								<p className="w-5/6 m-auto" key={i}>
-									{instr.display_text}
+									{instr.text}
 								</p>
 						  ))
 						: myRecipe.Instructions?.map((instr, i) => (

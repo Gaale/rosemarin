@@ -52,6 +52,7 @@ function CreateRecipe() {
 			ingredients: tmpIngredients,
 			instructions: subInstructions,
 		};
+		console.log(newRecipe);
 		postRecipe(newRecipe)
 			.then((res) => console.log(res))
 			.catch((error) => console.log(error));

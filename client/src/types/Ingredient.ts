@@ -4,6 +4,4 @@ export type Ingredient = {
 	quantity: string;
 	RecipeId: number;
 	id: number;
-	createdAt: string;
-	updatedAt: string;
 };

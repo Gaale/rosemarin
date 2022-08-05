@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import { TypedRequest } from '../types/TypedRequest';
 import { User } from '../types/User';
 import { Response, Request } from 'express';
+import { TypedSessionData } from '../types/TypedSession';
 
 const createUser = async (req: TypedRequest<User>, res: Response) => {
   try {
@@ -19,7 +20,8 @@ const createUser = async (req: TypedRequest<User>, res: Response) => {
         email: req.body.email,
         password: password,
       });
-      req.session.uid = result.id;
+      const session: TypedSessionData = req.session;
+      session.uid = result.id;
       res.status(201);
       res.send('Success');
     } else {
@@ -34,13 +36,14 @@ const createUser = async (req: TypedRequest<User>, res: Response) => {
 const loginUser = async (req: TypedRequest<User>, res: Response) => {
   try {
     const pass = req.body.password!;
-    const user = await User.findAll({ where: { email: req.body.email } });
-    console.log(user[0].password);
-    if (user[0]) {
-      if (bcrypt.compareSync(pass, user[0].password)) {
-        req.session.id = user.id;
+    const user = await User.findOne({ where: { email: req.body.email } });
+    console.log(user.password);
+    if (user) {
+      if (bcrypt.compareSync(pass, user.password)) {
+        const session: TypedSessionData = req.session;
+        session.uid = user.id;
         res.status(200);
-        res.send(user);
+        res.send('Ok');
       } else {
         res.status(401);
         res.send('invalid password');
@@ -57,7 +60,8 @@ const loginUser = async (req: TypedRequest<User>, res: Response) => {
 
 const profileUser = async (req: TypedRequest<User>, res: Response) => {
   try {
-    res.status(200).send(req.user);
+    const userRes = { name: req.body.user.name, email: req.body.user.email };
+    res.status(200).send(userRes);
   } catch (err) {
     res.status(500);
     console.log(err);

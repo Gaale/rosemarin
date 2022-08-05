@@ -7,3 +7,5 @@ const sequelize = new Sequelize('postgres', 'postgres', '1111', {
 });
 
 module.exports = sequelize;
+export default sequelize;
+

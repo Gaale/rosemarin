@@ -1,10 +1,12 @@
+import { Request, Response } from 'express';
 const Recipe = require('../models/Recipe');
-const Ingredient = require('../models/Ingredient');
-const Instruction = require('../models/Instruction');
+const IngredientModel = require('../models/Ingredient');
+const InstructionModel = require('../models/Instruction');
 const fs = require('fs');
+const { Ingredient, Instruction  } = require('../Types');
 
 
-const createRecipe = async (req, res) => {
+const createRecipe = async (req: Request, res: Response) => {
     try {
         const ingredients = req.body.ingredients;
         const instructions = req.body.instructions;
@@ -20,8 +22,8 @@ const createRecipe = async (req, res) => {
             UserId: 1
         });
 
-        ingredients.map(ingredient => {
-            Ingredient.create({
+        ingredients.map((ingredient: Ingredient) => {
+            IngredientModel.create({
                 name: ingredient.name,
                 unit: ingredient.unit,
                 quantity: ingredient.quantity,
@@ -29,8 +31,8 @@ const createRecipe = async (req, res) => {
             });
         })
 
-        instructions.map(instruction => {
-            Instruction.create({
+        instructions.map((instruction: Instruction) => {
+            InstructionModel.create({
                 text: instruction.text,
                 temperature: instruction.temperature,
                 RecipeId: newRecipe.id
@@ -45,7 +47,7 @@ const createRecipe = async (req, res) => {
 }
 
 
-const updateRecipe = async (req, res) => {
+const updateRecipe = async (req: Request, res: Response) => {
     try {
         const ingredients = req.body.ingredients;
         const instructions = req.body.instructions;
@@ -63,8 +65,8 @@ const updateRecipe = async (req, res) => {
             UserId: 1
         });
 
-        ingredients.map(ingredient => {
-            Ingredient.create({
+        ingredients.map((ingredient: Ingredient) => {
+            IngredientModel.create({
                 name: ingredient.name,
                 unit: ingredient.unit,
                 quantity: ingredient.quantity,
@@ -72,8 +74,8 @@ const updateRecipe = async (req, res) => {
             });
         })
 
-        instructions.map(instruction => {
-            Instruction.create({
+        instructions.map((instruction: Instruction) => {
+            InstructionModel.create({
                 text: instruction.text,
                 temperature: instruction.temperature,
                 RecipeId: updatedRecipe.id
@@ -86,7 +88,7 @@ const updateRecipe = async (req, res) => {
     }
 }
 
-const removeRecipe = async (req, res) => {
+const removeRecipe = async (req: Request, res: Response) => {
     try {
         const id = req.body.id;
         const recipe = await Recipe.findByPk(id);
@@ -104,7 +106,7 @@ const removeRecipe = async (req, res) => {
     }
 }
 
-const getAllRecipes = async (req, res) => {
+const getAllRecipes = async (req: Request, res: Response) => {
     try {
         //todo const userId = req.session.sid;
         const userId = 1;

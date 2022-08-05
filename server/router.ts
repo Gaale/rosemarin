@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 const express = require("express");
 const router = express.Router();
 const { createUser, loginUser, profileUser, logoutUser} = require('./controllers/userController');
@@ -21,7 +22,8 @@ router.put('/items', updateItem);
 router.delete('/items', removeItem);
 router.get('/items', getAllItems);
 
-router.get('*', function (req, res) {
+router.get('*', function (req: Request, res: Response) {
+// router.get('*', function (req, res) {
     res.status(404).send("<h1 style='margin: 50px auto; display: flex; justify-content: center'>Page Not found</h1>");
 });
 

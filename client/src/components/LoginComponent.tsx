@@ -6,7 +6,6 @@ import FormExtra from "./FormExtra";
 import Input from "./Input";
 import { useNavigate } from 'react-router-dom';
 import apiUserService from "../Utils/apiUserService";
-import auth from "../Utils/Auth";
 import {Login} from '../Types'
 
 const fields=loginFields;
@@ -40,7 +39,8 @@ function LoginComponent(props){
                 } else {
                     // This sets isAuthenticated = true and redirects to profile
                     props.setIsAuthenticated(true);
-                    auth.login(() => navigate("../home", { replace: true }));
+                    // auth.login(() => navigate("../home", { replace: true }));
+                    navigate("../home", { replace: true })
                 }
             })
             .catch(err => console.log(err))

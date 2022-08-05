@@ -3,8 +3,8 @@ import express from 'express';
 
 // const express = require('express');
 const cors = require('cors');
-const sequelize = require('./models');
-const Router = require('./router.js');
+import sequelize from './models';
+import router from './router';
 const app = express();
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -35,7 +35,7 @@ app.use(
   })
 );
 
-app.use(Router);
+app.use(router);
 
 (async () => {
   try {

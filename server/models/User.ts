@@ -1,9 +1,11 @@
-const sequelize = require('./index');
+import sequelize from './index';
 const { DataTypes } = require('sequelize');
-const Recipe = require('./Recipe');
-const ShoppingListItem = require('./ShoppingListItem');
+import { Model } from 'sequelize/types';
+import Recipe from './Recipe';
+import ShoppingListItem from './ShoppingListItem';
+import { User } from '../types/User';
 
-const User = sequelize.define('User', {
+const User = sequelize.define<Model<User>>('User', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,

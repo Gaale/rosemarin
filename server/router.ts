@@ -43,6 +43,4 @@ router.get('*', function (req, res) {
     );
 });
 
-module.exports = router;
-
-// s%3AmWkm4jFWVwS7JCfakGZTPX70RlU0UQvB.PsR0%2F5VIgQSkfS%2Bv0Waeijd2GZ3icVhRq8HcLZiRYcg
+export default router;

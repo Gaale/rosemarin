@@ -18,7 +18,13 @@ type MyRecipe = {
   img_data?: string,
   description: string,
   Ingredients: Ingredient[] | [],
-  Instructions: Instruction[] | [],
+  Instructions: Instruction[] | []
+  id?: number,
+  id_tasty?: number
+}
+type Ids = {
+  id: number,
+  id_tasty: number
 }
 
 declare namespace Express {

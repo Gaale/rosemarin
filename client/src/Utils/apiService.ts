@@ -7,8 +7,8 @@ import { Instruction, Recipe, Section } from '../Types';
 // };
 // const baseURL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20';
 
-export const getRandomRecipe = () => {
-// export const getRandomRecipe = (tag) => {
+
+export const getRandomRecipe = (tag) => {
   // let tagURL = '';
   // if (tag) tagURL = `&tags=${tag}`;
 

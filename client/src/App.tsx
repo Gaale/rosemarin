@@ -16,14 +16,14 @@ import { getMyShoppingList } from './Utils/apiDBServiceShoppingList';
 import LoginPage from './components/Login';
 import SignupPage from './components/Signup';
 import Logout from './components/Logout';
-import {Recipe, MyRecipe} from './Types';
+import {Recipe, MyRecipe, Ids} from './Types';
 
 
 
 function App() {
   const [recipes, setRecipes] = useState([] as Recipe[] | []);
   const [myRecipes, setMyRecipes] = useState([] as MyRecipe[] | []);
-  const [ids, setIds] = useState([]);
+  const [ids, setIds] = useState([] as Ids[] | []);
   const [items, setItems] = useState([]);
   // const initialState = auth.isAuthenticated();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,10 +47,11 @@ function App() {
     getMyRecipes()
       .then((recipes) =>
         recipes.map((el) =>
+
           setIds((prev) => {
             let id = el.id;
             let id_tasty = el.id_tasty;
-            const filtered = prev.filter((e) => e.id_tasty !== el.id_tasty);
+            const filtered = prev.filter((e: MyRecipe) => e.id_tasty !== el.id_tasty);
             return [...filtered, { id, id_tasty }];
           })
         )

@@ -14,7 +14,6 @@ import { getMyRecipes } from './Utils/apiDBService';
 import { getMyShoppingList } from './Utils/apiDBServiceShoppingList';
 import LoginPage from './components/Login.tsx';
 import SignupPage from './components/Signup';
-import auth from './Utils/Auth';
 import Logout from './components/Logout.tsx';
 
 function App() {
@@ -22,8 +21,8 @@ function App() {
   const [myRecipes, setMyRecipes] = useState([]);
   const [ids, setIds] = useState([]);
   const [items, setItems] = useState([]);
-  const initialState = auth.isAuthenticated();
-  const [isAuthenticated, setIsAuthenticated] = useState(initialState);
+  // const initialState = auth.isAuthenticated();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     getMyShoppingList()

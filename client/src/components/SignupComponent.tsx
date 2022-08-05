@@ -4,7 +4,6 @@ import { signupFields } from "../constants/formFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
 import apiUserService from "../Utils/apiUserService";
-import auth from "../Utils/Auth";
 import { useNavigate } from 'react-router-dom';
 import {Signup} from '../Types'
 
@@ -41,7 +40,8 @@ function SignupComponent(props){
                 } else {
                     // This sets isAuthenticated = true and redirects to profile
                     props.setIsAuthenticated(true);
-                    auth.login(() => navigate("../home", { replace: true }));
+                    navigate("../home", { replace: true });
+                    // auth.login(() => navigate("../home", { replace: true }));
                 }
             })
             .catch(err => console.log(err))

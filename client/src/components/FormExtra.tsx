@@ -16,9 +16,10 @@ function FormExtra(){
             </div>
 
             <div className="text-sm">
-                <a href="#" className="font-medium text-purple-600 hover:text-purple-500">
+                {/* Forgot password not yet implemented */}
+                {/* <a href="#" className="font-medium text-purple-600 hover:text-purple-500">
                     Forgot your password?
-                </a>
+                </a> */}
             </div>
         </div>
 

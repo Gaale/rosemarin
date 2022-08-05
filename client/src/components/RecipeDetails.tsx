@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { postItem} from "../Utils/apiDBServiceShoppingList";
 import { Section, Instruction, Ingredient, Rendition, Recipe, MyRecipe } from '../Types';
-import { IconPrefix, IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 
 

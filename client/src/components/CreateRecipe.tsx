@@ -42,10 +42,11 @@ function CreateRecipe() {
       .then((res) => console.log(res))
       .catch((error) => console.log(error));
 
-    e.target.title.value = '';
-    e.target.description.value = '';
-    e.target.url.value = '';
-    e.target.title = '';
+    // e.target.title.value = '';
+    // e.target.description.value = '';
+    // e.target.url.value = '';
+    // e.target.title = '';
+    e.target.reset()
   };
 
   const addHandlerIngredient = () => {

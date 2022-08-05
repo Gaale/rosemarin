@@ -19,6 +19,8 @@ type MyRecipe = {
   description: string,
   Ingredients: Ingredient[] | [],
   Instructions: Instruction[] | [],
+  id?: number,
+  id_tasty?: number | null,
 }
 
 

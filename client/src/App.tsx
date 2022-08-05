@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react'
+import { useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import RecipesList from './components/RecipesList';
@@ -12,13 +13,16 @@ import WeeklyMenu from './components/WeeklyMenu';
 import RecipeDetails from './components/RecipeDetails';
 import { getMyRecipes } from './Utils/apiDBService';
 import { getMyShoppingList } from './Utils/apiDBServiceShoppingList';
-import LoginPage from './components/Login.tsx';
+import LoginPage from './components/Login';
 import SignupPage from './components/Signup';
-import Logout from './components/Logout.tsx';
+import Logout from './components/Logout';
+import {Recipe, MyRecipe} from './Types';
+
+
 
 function App() {
-  const [recipes, setRecipes] = useState([]);
-  const [myRecipes, setMyRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([] as Recipe[] | []);
+  const [myRecipes, setMyRecipes] = useState([] as MyRecipe[] | []);
   const [ids, setIds] = useState([]);
   const [items, setItems] = useState([]);
   // const initialState = auth.isAuthenticated();
@@ -67,12 +71,10 @@ function App() {
         <Navbar isAuthenticated={isAuthenticated}></Navbar>
         <Routes>
           <Route
-            exact
             path="/"
             element={<LoginPage setIsAuthenticated={setIsAuthenticated} />}
           ></Route>
           <Route
-            exact
             path="/signup"
             element={<SignupPage setIsAuthenticated={setIsAuthenticated} />}
           ></Route>
@@ -82,7 +84,6 @@ function App() {
           />
 
           <Route
-            exact
             path="/home"
             element={
               <RecipesList
@@ -94,7 +95,6 @@ function App() {
             }
           ></Route>
           <Route
-            exact
             path="/my_recipes"
             element={
               <MyRecipesList
@@ -107,7 +107,6 @@ function App() {
             }
           ></Route>
           <Route
-            exact
             path="/recipes/:id"
             element={
               <RecipeDetails
@@ -119,9 +118,9 @@ function App() {
               />
             }
           ></Route>
-          <Route exact path="/create" element={<CreateRecipe />}></Route>
-          <Route exact path="/menu" element={<Menu />}></Route>
-          <Route exact path="/weekly_menu" element={<WeeklyMenu />}></Route>
+          <Route path="/create" element={<CreateRecipe />}></Route>
+          <Route path="/menu" element={<Menu />}></Route>
+          <Route path="/weekly_menu" element={<WeeklyMenu />}></Route>
         </Routes>
       </BrowserRouter>
       <ShoppingList items={items} setItems={setItems} />

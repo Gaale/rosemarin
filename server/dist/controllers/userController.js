@@ -8,22 +8,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const pass = req.body.password;
-        const salt = bcrypt.genSaltSync(10);
-        const password = bcrypt.hashSync(pass, salt);
-        const user = yield User.findAll({ where: { email: req.body.email } });
-        if (!user[0]) {
+        const salt = bcryptjs_1.default.genSaltSync(10);
+        const password = bcryptjs_1.default.hashSync(pass, salt);
+        const user = yield User.findOne({
+            where: { email: req.body.email },
+        });
+        if (!user) {
             const result = yield User.create({
                 name: req.body.name,
                 email: req.body.email,
                 password: password,
             });
-            req.session.sid = result.id;
-            res.status(201).send('Success');
+            const session = req.session;
+            session.uid = result.id;
+            res.status(201);
+            res.send('Success');
         }
         else {
             res.status(400).send('Account already exists.');
@@ -37,13 +45,14 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const pass = req.body.password;
-        const user = yield User.findAll({ where: { email: req.body.email } });
-        console.log(user[0].password);
-        if (user[0]) {
-            if (bcrypt.compareSync(pass, user[0].password)) {
-                req.session.sid = user.id;
+        const user = yield User.findOne({ where: { email: req.body.email } });
+        console.log(user.password);
+        if (user) {
+            if (bcryptjs_1.default.compareSync(pass, user.password)) {
+                const session = req.session;
+                session.uid = user.id;
                 res.status(200);
-                res.send(user);
+                res.send('Ok');
             }
             else {
                 res.status(401);
@@ -62,7 +71,8 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const profileUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).send(req.user);
+        const userRes = { name: req.body.user.name, email: req.body.user.email };
+        res.status(200).send(userRes);
     }
     catch (err) {
         res.status(500);

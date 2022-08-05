@@ -8,27 +8,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const express = require('express');
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_session_1 = __importDefault(require("express-session"));
+const express_1 = __importDefault(require("express"));
+// const express = require('express');
 const cors = require('cors');
 const sequelize = require('./models');
 const Router = require('./router.js');
-const app = express();
+const app = (0, express_1.default)();
 const corsOptions = {
     origin: 'http://localhost:3000',
     credentials: true,
 };
-const session = require('express-session');
+// const session = require('express-session');
 const maxAge = parseInt(process.env.MAX_AGE) || 3600000;
 const secret = process.env.SESSION_SECRET || 'secret123';
 const PORT = 3001;
 app.use(cors(corsOptions));
-app.use(express.json());
-const fileUpload = require('express-fileupload');
-app.use(fileUpload({
+app.use(express_1.default.json());
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
+app.use((0, express_fileupload_1.default)({
     createParentPath: true,
 }));
-app.use(session({
-    path: '/',
+app.use((0, express_session_1.default)({
     secret: secret,
     saveUninitialized: false,
     resave: false,

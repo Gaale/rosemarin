@@ -6,17 +6,17 @@ const ShoppingListItem = require('./ShoppingListItem');
 const User = sequelize.define('User', {
     name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
 });
-User.hasMany(Recipe, { onDelete: "cascade" });
-User.hasMany(ShoppingListItem, { onDelete: "cascade" });
+User.hasMany(Recipe, { onDelete: 'cascade' });
+User.hasMany(ShoppingListItem, { onDelete: 'cascade' });
 module.exports = User;

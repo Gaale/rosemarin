@@ -27,10 +27,17 @@ const Heart = ({ recipe, setIds, ids }) => {
         return { text };
       });
       const ingredients = recipe.sections.map((el) => {
-        const final = el.components.reduce((acc, comp)=> {
-          acc = [...acc, {name: comp.ingredient.name, unit: comp.measurements[0].unit.name, quantity: comp.measurements[0].quantity || null}]
+        const final = el.components.reduce((acc, comp) => {
+          acc = [
+            ...acc,
+            {
+              name: comp.ingredient.name,
+              unit: comp.measurements[0].unit.name,
+              quantity: comp.measurements[0].quantity || null,
+            },
+          ];
           return acc;
-        }, [])
+        }, []);
         return final.flat();
       });
 

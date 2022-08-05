@@ -1,20 +1,23 @@
-import React, { useRef, useState } from 'react';
+import * as React from 'react'
+import {useState } from 'react';
 import TopSection from './TopSection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import Instruction from './Instruction';
-// import Ingredient from './Ingredient';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import {Ingredient} from '../Types';
 import { postRecipe } from '../Utils/apiDBService';
+
+
 
 function CreateRecipe() {
   const [ingredients, setIngredients] = useState([
-    { name: '', quantity: 0, unit: '' },
+    { name: '', quantity: '', unit: '' },
   ]);
   const [instructions, setInstructions] = useState(['']);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newTmpIngredients = ingredients.reduce((ingreds, ing) => {
+    const newTmpIngredients = ingredients.reduce((ingreds: Ingredient[], ing) => {
       const itemIndex = ingreds.findIndex((item) => item.name === ing.name);
       if (itemIndex === -1) {
         ingreds = [...ingreds, ing];
@@ -46,7 +49,7 @@ function CreateRecipe() {
   };
 
   const addHandlerIngredient = () => {
-    setIngredients([...ingredients, { name: '', quantity: 0, unit: '' }]);
+    setIngredients([...ingredients, { name: '', quantity: '', unit: '' }]);
   };
 
   const delHandlerIngredient = (index) => {
@@ -122,12 +125,12 @@ function CreateRecipe() {
           <label className='label justify-start mr-10'>
             Ingredients
             <FontAwesomeIcon
-              icon='fa-solid fa-plus'
+              icon={'fa-solid fa-plus' as IconProp}
               className='text-warning transition-all hover:text-2xl ml-10'
               onClick={addHandlerIngredient}
             />
             <FontAwesomeIcon
-              icon='fa-solid fa-minus'
+              icon={'fa-solid fa-minus' as IconProp}
               className='text-warning transition-all hover:text-2xl cursor-pointer ml-10'
               onClick={delHandlerIngredient}
             />
@@ -172,12 +175,12 @@ function CreateRecipe() {
           <label className='label justify-start mr-10'>
             Instructions
             <FontAwesomeIcon
-              icon='fa-solid fa-plus'
+              icon={'fa-solid fa-plus' as IconProp}
               className='text-warning transition-all hover:text-2xl cursor-pointer ml-10'
               onClick={addHandlerInstruction}
             />
             <FontAwesomeIcon
-              icon='fa-solid fa-minus'
+              icon={'fa-solid fa-minus' as IconProp}
               className='text-warning transition-all hover:text-2xl cursor-pointer ml-10'
               onClick={delHandlerInstruction}
             />

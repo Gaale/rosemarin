@@ -17,6 +17,10 @@ const Ingredient = sequelize.define<Model<Ingredient>>('Ingredient', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  recipeId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
 
 export default Ingredient;

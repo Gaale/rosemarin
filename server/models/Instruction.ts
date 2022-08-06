@@ -12,6 +12,10 @@ const Instruction = sequelize.define<Model<Instruction>>('Instruction', {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
+  recipeId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
 
 export default Instruction;

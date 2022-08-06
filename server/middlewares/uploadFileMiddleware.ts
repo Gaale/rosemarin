@@ -1,5 +1,5 @@
 import { Response, Request, NextFunction } from 'express';
-
+const url = require('url');
 import path from 'path';
 import { RecipeType } from '../types/Recipe';
 
@@ -16,6 +16,10 @@ const fileMiddleware = async (
         let ext = path.extname(file.name);
         let newName = file.md5 + ext;
         await file.mv('./images/' + newName);
+
+        req.body.img_data = url.pathToFileURL(
+          path.relative('/', `../images/${newName}`)
+        );
         req.body.image = path.relative('/', `../images/${newName}`);
         next();
       }

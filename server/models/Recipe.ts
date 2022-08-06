@@ -34,6 +34,11 @@ const Recipe = sequelize.define<Model<RecipeType>>('Recipe', {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true, // Automatically gets converted to SERIAL for postgres
+  },
 });
 
 Recipe.hasMany(Ingredient, { onDelete: 'cascade' });

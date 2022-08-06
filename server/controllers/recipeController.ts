@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { RecipeType } from '../types/Recipe';
 import { TypedSessionData } from '../types/TypedSession';
 
-const Recipe = require('../models/Recipe');
+import Recipe from '../models/Recipe';
 import Ingredient from '../models/Ingredient';
 import Instruction from '../models/Instruction';
 const fs = require('fs');
@@ -16,11 +16,11 @@ const createRecipe = async (
     const instructions = req.body.instructions;
     const session: TypedSessionData = req.session;
     const uid = session.uid;
-    const newRecipe: RecipeType = await Recipe.create({
+    const newRecipe = await Recipe.create({
       title: req.body.title,
       description: req.body.description,
       img_url: req.body.img_url,
-      img_data: req.body.image,
+      img_data: req.body.img_data,
       img_alt_text: req.body.img_alt_text,
       total_time: req.body.total_time,
       id_tasty: req.body.id_tasty,
@@ -32,7 +32,7 @@ const createRecipe = async (
         name: ingredient.name,
         unit: ingredient.unit,
         quantity: ingredient.quantity,
-        id: newRecipe.id,
+        recipeId: newRecipe.id,
       });
     });
 
@@ -40,7 +40,7 @@ const createRecipe = async (
       Instruction.create({
         text: instruction.text,
         temperature: instruction.temperature,
-        id: newRecipe.id,
+        recipeId: newRecipe.id,
       });
     });
 
@@ -67,7 +67,7 @@ const updateRecipe = async (
       title: req.body.title,
       description: req.body.description,
       img_url: req.body.img_url,
-      img_data: req.body.image,
+      img_data: req.body.img_data,
       img_alt_text: req.body.img_alt_text,
       total_time: req.body.total_time,
       id_tasty: req.body.id_tasty,
@@ -79,7 +79,7 @@ const updateRecipe = async (
         name: ingredient.name,
         unit: ingredient.unit,
         quantity: ingredient.quantity,
-        id: updatedRecipe.id,
+        recipeId: updatedRecipe.id,
       });
     });
 
@@ -87,7 +87,7 @@ const updateRecipe = async (
       Instruction.create({
         text: instruction.text,
         temperature: instruction.temperature,
-        id: updatedRecipe.id,
+        recipeId: updatedRecipe.id,
       });
     });
     res.status(200).send({ message: 'Recipe has been successfully updated' });
@@ -105,7 +105,7 @@ const removeRecipe = async (
 ) => {
   try {
     const id = req.body.id;
-    const recipe: RecipeType = await Recipe.findByPk(id);
+    const recipe = await Recipe.findByPk(id);
     if (!recipe || !recipe.img_data) {
       await Recipe.destroy({ where: { id: id } });
     } else {
@@ -126,7 +126,7 @@ const getAllRecipes = async (req: Request<RecipeType>, res: Response) => {
   try {
     const session: TypedSessionData = req.session;
     const userId = session.uid;
-    const allRecipes: RecipeType[] = await Recipe.findAll({
+    const allRecipes = await Recipe.findAll({
       where: { UserId: userId },
       include: ['Instructions', 'Ingredients'],
     });

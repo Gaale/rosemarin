@@ -10,10 +10,12 @@ const mockUser = {
 
 let agent;
 describe('User endpoint', () => {
-  it('should create a new user & return a 201 status code', async () => {
+  it('should get a cookie with sid in the header & return a 201 status code', async () => {
     const response = await request(baseUrl).post('/login').send(mockUser);
     expect(response.statusCode).toBe(200);
+    expect(response.header).toHaveProperty('set-cookie');
     agent = response;
+
     expect(response.text).toEqual('Ok');
   });
 
@@ -27,12 +29,11 @@ describe('User endpoint', () => {
     expect(response.body).toHaveProperty('email');
   });
 
-  it('should logout & return a 200 status code', async () => {
+  it('should destroy the cookie & return a 200 status code', async () => {
     const response = await request(baseUrl)
       .get('/logout')
       .set('Cookie', [`${agent.header['set-cookie'][0]}`]);
 
-    console.log('////////////////////////////////    ', response.header);
     expect(
       response.header['set-cookie'] === agent.header['set-cookie']
     ).toBeFalsy();

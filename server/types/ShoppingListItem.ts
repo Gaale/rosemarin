@@ -1,7 +1,7 @@
-export type ShoppingListItem = {
-  name: string;
-  unit?: string;
-  quantity?: string;
-  userId?: number;
-  id?: number;
+export type ShoppingListItemType = {
+	name: string;
+	unit?: string;
+	quantity?: string;
+	UserId?: number;
+	id?: number;
 };

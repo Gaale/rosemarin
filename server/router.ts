@@ -7,6 +7,7 @@ const fileMiddleware = require("./middlewares/uploadFileMiddleware");
 const {addItem, updateItem, removeItem, getAllItems} = require("./controllers/shoppingListController");
 const authMiddleware = require("./middlewares/authMiddleware");
 
+
 router.post('/register', createUser);
 router.post('/login', loginUser);
 router.get('/me', authMiddleware, profileUser);

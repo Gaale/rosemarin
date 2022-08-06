@@ -3,7 +3,7 @@ const Recipe = require('../models/Recipe');
 const IngredientModel = require('../models/Ingredient');
 const InstructionModel = require('../models/Instruction');
 const fs = require('fs');
-const { Ingredient, Instruction  } = require('../Types');
+import { Ingredient, Instruction  } from '../Types';
 
 
 const createRecipe = async (req: Request, res: Response) => {

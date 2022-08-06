@@ -15,6 +15,7 @@ const createUser = async (req: Request, res: Response) => {
                 email: req.body.email,
                 password: password,
             });
+            
             req.session.sid = result.id;
             res.status(201).send('Success');
         } else {
@@ -34,6 +35,8 @@ const loginUser = async (req: Request, res: Response) => {
         if(user[0]) {
             if(bcrypt.compareSync(pass, user[0].password)) {
                 req.session.sid = user.id;
+                console.log('login session', req.session, 'session_id',req.session.sid)
+                
                 res.status(200);
                 res.send(user);
             } else {

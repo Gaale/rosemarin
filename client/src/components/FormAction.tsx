@@ -2,7 +2,6 @@ import * as React from 'react';
 
 function FormAction({
   handleSubmit,
-
   text,
   validateForm,
 }) {

@@ -6,19 +6,19 @@ import Input from "./Input";
 import apiUserService from "../Utils/apiUserService";
 import { useNavigate } from 'react-router-dom';
 import {Signup} from '../Types'
-
+import auth from '../Utils/auth.js';
 
 const fields=signupFields;
-let fieldsState: Signup={
+const initialState: Signup={
     name: '',
     email: '',
     password: '',
 };
 
-fields.forEach(field => fieldsState[field.id]='');
+// fields.forEach(field => fieldsState[field.id]='');
 
 function SignupComponent(props){
-    const [signupState,setSignupState]=useState(fieldsState);
+    const [signupState,setSignupState]=useState(initialState);
     const [errorMessage, setErrorMessage] = useState('');
 
     const navigate = useNavigate();
@@ -37,11 +37,12 @@ function SignupComponent(props){
             .then(res => {
                 if(!res) {
                     setErrorMessage('Account already exists. Please try again.');
+                    setSignupState(initialState);
                 } else {
                     // This sets isAuthenticated = true and redirects to profile
                     props.setIsAuthenticated(true);
-                    navigate("../home", { replace: true });
-                    // auth.login(() => navigate("../home", { replace: true }));
+                    // navigate("/home");
+                    auth.login(() => navigate('/home'));
                 }
             })
             .catch(err => console.log(err))

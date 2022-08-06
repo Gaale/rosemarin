@@ -12,10 +12,7 @@ const register = (user) => {
     };
 
     return fetch(`${BASE_URL}/register`, options)
-    .then(response => {
-        if(response.ok)
-        return response.json();
-    })
+    .then(response => response.json())
     .catch(err => console.error(err));
 };
 
@@ -30,13 +27,11 @@ const login = (user) => {
     };
 
     return fetch(`${BASE_URL}/login`, options)
-    .then(response => {
-        if(response.ok)
-        return response.json()
-    })
+    .then(response => response.json())
     .catch(err => console.error(err));
 };
 
+// Profile is not implemented
 const profile = () => {
     return fetch(`${BASE_URL}/me`,{
         method: 'GET',

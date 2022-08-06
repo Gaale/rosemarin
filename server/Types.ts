@@ -1,3 +1,5 @@
+import { UserInfo } from "os"
+
 type Signup = {name: string, email: string, password: string}
 type Login = {email: string, password: string}
 type Section = {components: []}
@@ -29,6 +31,8 @@ type Ids = {
 
 declare namespace Express {
   interface Request {
-    image: string,
+    image?: string,
+    session?: {sid: string},
+    user?: string,
   }
 }

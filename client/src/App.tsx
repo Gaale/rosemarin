@@ -17,6 +17,7 @@ import LoginPage from './components/Login';
 import SignupPage from './components/Signup';
 import Logout from './components/Logout';
 import {Recipe, MyRecipe, Ids} from './Types';
+import auth from './Utils/auth.js';
 
 
 
@@ -25,8 +26,8 @@ function App() {
   const [myRecipes, setMyRecipes] = useState([] as MyRecipe[] | []);
   const [ids, setIds] = useState([] as Ids[] | []);
   const [items, setItems] = useState([]);
-  // const initialState = auth.isAuthenticated();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const initialState = auth.isAuthenticated();
+  const [isAuthenticated, setIsAuthenticated] = useState(initialState);
 
   useEffect(() => {
     getMyShoppingList()
@@ -114,8 +115,6 @@ function App() {
                 recipes={recipes}
                 myRecipes={myRecipes}
                 setItems={setItems}
-                setIds={setIds}
-                ids={ids}
               />
             }
           ></Route>

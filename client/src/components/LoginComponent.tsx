@@ -7,16 +7,18 @@ import Input from "./Input";
 import { useNavigate } from 'react-router-dom';
 import apiUserService from "../Utils/apiUserService";
 import {Login} from '../Types'
+import auth from '../Utils/auth.js';
 
 const fields=loginFields;
-let fieldsState: Login = {
+const initialState: Login = {
     email: '',
     password: ''
 };
-fields.forEach(field=>fieldsState[field.id]='');
+
+// fields.forEach(field=>fieldsState[field.id]='');
 
 function LoginComponent(props){
-    const [loginState,setLoginState]=useState(fieldsState);
+    const [loginState, setLoginState]=useState(initialState);
     const [errorMessage, setErrorMessage] = useState('');
 
     const navigate = useNavigate();
@@ -35,12 +37,12 @@ function LoginComponent(props){
         apiUserService.login(loginState)
             .then(res => {
                 if(!res) {
-                    setErrorMessage('Incorrect login information.')
+                    setErrorMessage('Incorrect login information.');
+                    setLoginState(initialState);
                 } else {
                     // This sets isAuthenticated = true and redirects to profile
                     props.setIsAuthenticated(true);
-                    // auth.login(() => navigate("../home", { replace: true }));
-                    navigate("../home", { replace: true })
+                    auth.login(() => navigate('/home'));
                 }
             })
             .catch(err => console.log(err))
@@ -72,7 +74,7 @@ function LoginComponent(props){
                 }
             </div>
 
-            <FormExtra/>
+            {/* <FormExtra/> */}
             <FormAction handleSubmit={handleSubmit} text="Login" validateForm={validateForm}/>
             <div className="alert-error">{errorMessage}</div>
         </form>

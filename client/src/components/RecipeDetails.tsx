@@ -8,7 +8,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 
 
-const RecipeDetails = ({recipes, myRecipes, items, setItems}) => {
+const RecipeDetails = ({recipes, myRecipes, setItems}) => {
     const [recipe, setRecipe] = useState({
         name: '',
         thumbnail_url: '',

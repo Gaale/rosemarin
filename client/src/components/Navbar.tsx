@@ -15,31 +15,28 @@ const Navbar = ({ isAuthenticated }) => {
               My Recipes
             </Link>
           ) : (
-              <span className='menu-item cursor-pointer'>My Recipes</span>
+            <Link className='menu-item cursor-pointer ' to='/'>
+            My Recipes
+          </Link>
               )}
           {isAuthenticated ? (
               <Link className='menu-item ml-10 cursor-pointer' to='/create'>
               Create Recipe
             </Link>
           ) : (
-              <span className='menu-item ml-10 cursor-pointer'>
-              Create Recipe
-            </span>
+            <Link className='menu-item ml-10 cursor-pointer' to='/'>
+            Create Recipe
+          </Link>
           )}
         </div>
         <div className=''>
-          {isAuthenticated ? (
+          
               <Link
               to='/home'
               className='btn btn-ghost normal-case text-3xl font-PoiretOne mr-4 ml-4'
               >
               ROSEMARY
             </Link>
-          ) : (
-            <span className='btn btn-ghost normal-case text-3xl font-PoiretOne mr-4 ml-4'>
-              ROSEMARY
-            </span>
-          )}
         </div>
         <div className='justify-start'>
           {isAuthenticated ? (
@@ -50,16 +47,18 @@ const Navbar = ({ isAuthenticated }) => {
               Shopping List
             </label>
           ) : (
-            <label className='menu-item mr-10 cursor-pointer modal-button'>
+            <Link className='menu-item mr-10 cursor-pointer modal-button' to='/'>
               Shopping List
-            </label>
+            </Link>
           )}
           {isAuthenticated ? (
             <Link className='menu-item cursor-pointer' to='/menu'>
               Menu
             </Link>
           ) : (
-            <span className='menu-item cursor-pointer'>Menu</span>
+            <Link className='menu-item cursor-pointer' to='/'>
+              Menu
+            </Link>
           )}
         </div>
         <div className='ml-10'>

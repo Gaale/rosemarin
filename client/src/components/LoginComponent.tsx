@@ -41,6 +41,7 @@ function LoginComponent(props){
                     setLoginState(initialState);
                 } else {
                     // This sets isAuthenticated = true and redirects to profile
+                    console.log({res})
                     props.setIsAuthenticated(true);
                     auth.login(() => navigate('/home'));
                 }

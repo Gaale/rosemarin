@@ -30,6 +30,7 @@ export const getRandomRecipe = (tag=null) => {
       sections:  recipe.sections as Section[] | [],
       instructions: recipe.instructions as Instruction[],
       renditions:  recipe.renditions,
+      id: recipe.id,
     }]
     return acc
   }, [])

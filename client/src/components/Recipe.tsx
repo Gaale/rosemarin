@@ -4,6 +4,7 @@ import Heart from "./Heart";
 
 
 const Recipe = ({ recipe, className, setIds, ids }) => {
+    // console.log({recipe})
     return (
         <li className={className}>
             <figure><img  src={ recipe.thumbnail_url || recipe.img_url || recipe.img_data } alt={ recipe.name || recipe.title }/></figure>

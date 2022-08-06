@@ -14,7 +14,6 @@ const Logout = ({ setIsAuthenticated }) => {
   };
 
   const handleAuth = () => {
-    console.log('loggedout');
     setIsAuthenticated(false);
     auth.logout(() => navigate('/'));
   };

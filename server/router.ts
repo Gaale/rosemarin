@@ -27,7 +27,7 @@ router.get('/me', authMiddleware, profileUser);
 router.get('/logout', authMiddleware, logoutUser);
 
 router.post('/recipes', fileMiddleware, createRecipe);
-router.put('/recipes/:id', fileMiddleware, updateRecipe);
+// router.put('/recipes/:id', fileMiddleware, updateRecipe);
 router.delete('/recipes', removeRecipe);
 router.get('/recipes', getAllRecipes);
 

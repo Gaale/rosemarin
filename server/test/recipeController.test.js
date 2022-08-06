@@ -21,7 +21,7 @@ const mockRecipe = {
   instructions: [{ text: 'instruction 1' }],
 };
 
-describe('User endpoint', () => {
+describe('Recipe endpoint', () => {
   it('should create a recipe, return a 201 status code & message in body', async () => {
     const agent = await request(baseUrl).post('/login').send(mockUser);
     const response = await request(baseUrl)
@@ -29,8 +29,19 @@ describe('User endpoint', () => {
       .set('Cookie', [`${agent.header['set-cookie'][0]}`])
       .send(mockRecipe);
 
-    console.log('//////////////////////////////', agent.header);
+    // console.log('//////////////////////////////', response);
     expect(response.statusCode).toBe(201);
     expect(response.body).toHaveProperty('message');
+  });
+  it('should return all recipes,  & message in body', async () => {
+    const agent = await request(baseUrl).post('/login').send(mockUser);
+    const response = await request(baseUrl)
+      .get('/recipes')
+      .set('Cookie', [`${agent.header['set-cookie'][0]}`])
+      .send(mockRecipe);
+
+    // console.log('//////////////////////////////', response);
+    expect(response.statusCode).toBe(200);
+    // expect(response.body).toHaveProperty('message');
   });
 });

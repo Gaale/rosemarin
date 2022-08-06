@@ -27,12 +27,14 @@ const createRecipe = async (
       UserId: uid,
     });
 
+    const recipeId = Number(newRecipe.getDataValue('id'));
+
     ingredients!.map((ingredient) => {
       Ingredient.create({
         name: ingredient.name,
         unit: ingredient.unit,
         quantity: ingredient.quantity,
-        recipeId: newRecipe.id,
+        recipeId: recipeId,
       });
     });
 
@@ -40,7 +42,7 @@ const createRecipe = async (
       Instruction.create({
         text: instruction.text,
         temperature: instruction.temperature,
-        recipeId: newRecipe.id,
+        recipeId: recipeId,
       });
     });
 
@@ -53,51 +55,52 @@ const createRecipe = async (
   }
 };
 
-const updateRecipe = async (
-  req: Request<any, any, RecipeType>,
-  res: Response
-) => {
-  try {
-    const ingredients = req.body.ingredients;
-    const instructions = req.body.instructions;
-    const id = req.params.id;
-    const session: TypedSessionData = req.session;
-    await Recipe.destroy({ where: { id: id } });
-    const updatedRecipe = await Recipe.create({
-      title: req.body.title,
-      description: req.body.description,
-      img_url: req.body.img_url,
-      img_data: req.body.img_data,
-      img_alt_text: req.body.img_alt_text,
-      total_time: req.body.total_time,
-      id_tasty: req.body.id_tasty,
-      UserId: session.uid,
-    });
+// const updateRecipe = async (
+//   req: Request<any, any, RecipeType>,
+//   res: Response
+// ) => {
+//   try {
 
-    ingredients!.map((ingredient) => {
-      Ingredient.create({
-        name: ingredient.name,
-        unit: ingredient.unit,
-        quantity: ingredient.quantity,
-        recipeId: updatedRecipe.id,
-      });
-    });
+//     const ingredients = req.body.ingredients;
+//     const instructions = req.body.instructions;
+//     const id = req.params.id;
+//     const session: TypedSessionData = req.session;
+//     await Recipe.destroy({ where: { id: id } });
+//     const updatedRecipe = await Recipe.create({
+//       title: req.body.title,
+//       description: req.body.description,
+//       img_url: req.body.img_url,
+//       img_data: req.body.img_data,
+//       img_alt_text: req.body.img_alt_text,
+//       total_time: req.body.total_time,
+//       id_tasty: req.body.id_tasty,
+//       UserId: session.uid,
+//     });
 
-    instructions!.map((instruction) => {
-      Instruction.create({
-        text: instruction.text,
-        temperature: instruction.temperature,
-        recipeId: updatedRecipe.id,
-      });
-    });
-    res.status(200).send({ message: 'Recipe has been successfully updated' });
-  } catch (err) {
-    console.log(err);
-    res
-      .status(500)
-      .send({ message: 'Due to error recipe has not been updated' });
-  }
-};
+//     ingredients!.map((ingredient) => {
+//       Ingredient.create({
+//         name: ingredient.name,
+//         unit: ingredient.unit,
+//         quantity: ingredient.quantity,
+//         recipeId: updatedRecipe.id,
+//       });
+//     });
+
+//     instructions!.map((instruction) => {
+//       Instruction.create({
+//         text: instruction.text,
+//         temperature: instruction.temperature,
+//         recipeId: updatedRecipe.id,
+//       });
+//     });
+//     res.status(200).send({ message: 'Recipe has been successfully updated' });
+//   } catch (err) {
+//     console.log(err);
+//     res
+//       .status(500)
+//       .send({ message: 'Due to error recipe has not been updated' });
+//   }
+// };
 
 const removeRecipe = async (
   req: Request<any, any, RecipeType>,
@@ -106,10 +109,10 @@ const removeRecipe = async (
   try {
     const id = req.body.id;
     const recipe = await Recipe.findByPk(id);
-    if (!recipe || !recipe.img_data) {
+    if (!recipe || !recipe.getDataValue('img_data')) {
       await Recipe.destroy({ where: { id: id } });
     } else {
-      const path = recipe.img_data;
+      const path = recipe.getDataValue('img_data');
       await Recipe.destroy({ where: { id: id } });
       fs.unlinkSync(path);
     }
@@ -139,4 +142,4 @@ const getAllRecipes = async (req: Request<RecipeType>, res: Response) => {
   }
 };
 
-module.exports = { createRecipe, removeRecipe, updateRecipe, getAllRecipes };
+module.exports = { createRecipe, removeRecipe, getAllRecipes };

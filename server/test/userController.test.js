@@ -12,6 +12,7 @@ let agent;
 describe('User endpoint', () => {
   it('should get a cookie with sid in the header & return a 201 status code', async () => {
     const response = await request(baseUrl).post('/login').send(mockUser);
+    console.log('agentlog /&/&/%&/&%%&/%&/%/&/&&/&///////////', response);
     expect(response.statusCode).toBe(200);
     expect(response.header).toHaveProperty('set-cookie');
     agent = response;

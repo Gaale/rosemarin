@@ -1,21 +1,28 @@
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+import bcrypt from 'bcryptjs';
+import { User } from '../types/User';
+import { Response, Request } from 'express';
+import { TypedSessionData } from '../types/TypedSession';
 
-const createUser = async (req: Request, res: Response) => {
+const createUser = async (req: Request<any, any, User>, res: Response) => {
   try {
-    const pass: String = req.body.password;
+    const pass = req.body.password;
     const salt = bcrypt.genSaltSync(10);
     const password = bcrypt.hashSync(pass, salt);
 
-    const user = await User.findAll({ where: { email: req.body.email } });
-    if (!user[0]) {
-      const result = await User.create({
+    const user: User | undefined = await User.findOne({
+      where: { email: req.body.email },
+    });
+    if (!user) {
+      const result: User = await User.create({
         name: req.body.name,
         email: req.body.email,
         password: password,
       });
-      req.session.sid = result.id;
-      res.status(201).send('Success');
+      const session: TypedSessionData = req.session;
+      session.uid = result.id;
+      res.status(201);
+      res.send('Success');
     } else {
       res.status(400).send('Account already exists.');
     }
@@ -25,16 +32,17 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
-const loginUser = async (req: Request, res: Response) => {
+const loginUser = async (req: Request<any, any, User>, res: Response) => {
   try {
-    const pass = req.body.password;
-    const user = await User.findAll({ where: { email: req.body.email } });
-    console.log(user[0].password);
-    if (user[0]) {
-      if (bcrypt.compareSync(pass, user[0].password)) {
-        req.session.sid = user.id;
+    const pass = req.body.password!;
+    const user = await User.findOne({ where: { email: req.body.email } });
+    console.log(user.password);
+    if (user) {
+      if (bcrypt.compareSync(pass, user.password)) {
+        const session: TypedSessionData = req.session;
+        session.uid = user.id;
         res.status(200);
-        res.send(user);
+        res.send('Ok');
       } else {
         res.status(401);
         res.send('invalid password');
@@ -51,7 +59,8 @@ const loginUser = async (req: Request, res: Response) => {
 
 const profileUser = async (req: Request, res: Response) => {
   try {
-    res.status(200).send(req.user);
+    const userRes = { name: req.body.user.name, email: req.body.user.email };
+    res.status(200).send(userRes);
   } catch (err) {
     res.status(500);
     console.log(err);

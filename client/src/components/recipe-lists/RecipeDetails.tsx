@@ -10,7 +10,7 @@ type Props = {
 	recipes: GeneralRecipe[];
 	myRecipes: GeneralRecipe[];
 	//   items :  ItemType[];
-	setItems: (itemsArr: ItemType[]) => void;
+	setItems: (itemsArr: ItemType[] | ((prev: ItemType[]) => ItemType[])) => void;
 };
 
 const RecipeDetails = ({ recipes, myRecipes, setItems }: Props) => {
@@ -47,8 +47,7 @@ const RecipeDetails = ({ recipes, myRecipes, setItems }: Props) => {
 			const item = await postItem(newItem);
 
 			// setItems(aux as unknown as ItemType[]);
-			// @ts-ignore
-			setItems((prev: ItemType[]) => {
+			setItems((prev) => {
 				return [...prev, item];
 			});
 		} catch (error) {

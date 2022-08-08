@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { postItem } from '../../Utils/apiDBServiceShoppingList';
@@ -11,7 +17,7 @@ type Props = {
   recipes: GeneralRecipe[];
   myRecipes: GeneralRecipe[];
   //   items :  ItemType[];
-  setItems: (itemsArr: ItemType[] | ((prev: ItemType[]) => ItemType[])) => void;
+  setItems: Dispatch<SetStateAction<ItemType[]>>;
 };
 
 const RecipeDetails = ({ recipes, myRecipes, setItems }: Props) => {

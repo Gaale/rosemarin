@@ -12,8 +12,11 @@ test('Should Render Header Correctly', () => {
 		<Header heading={heading} paragraph={paragraph} linkName={linkName} linkUrl={linkUrl} />,
 		{ wrapper: MemoryRouter }
 	);
-	getByText(heading);
-	getByText(paragraph);
+	const headingText = getByText(heading);
+	const paragraphText = getByText(paragraph);
+
+	expect(headingText).toHaveTextContent(heading);
+	expect(paragraphText).toHaveTextContent(paragraph);
 });
 test('Should Render Top Section Correctly', () => {
 	render(<TopSection />);

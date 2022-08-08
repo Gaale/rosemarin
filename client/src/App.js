@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
-import RecipesList from './components/recipe-lists/RecipesList';
+import RecipesList from './components/recipe-lists/RecipesList.tss';
 import { getCategory, getRandomRecipe } from './Utils/apiService';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MyRecipesList from './components/recipe-lists/MyRecipesList';

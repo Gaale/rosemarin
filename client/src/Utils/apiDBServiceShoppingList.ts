@@ -1,3 +1,6 @@
+import { ItemType } from "../types/ItemType";
+import { MyRecipe } from "../types/RecipeTypes";
+
 export const baseDBUrl = 'http://localhost:3001/items';
 
 export const getMyShoppingList = async () => {
@@ -6,13 +9,13 @@ export const getMyShoppingList = async () => {
         .catch(err => console.error.bind(err));
 }
 
-export const postItem = async (recipe) => {
-    return fetch(baseDBUrl, {
+export const postItem = async (recipe:MyRecipe):Promise<ItemType> => {
+    (return fetch(baseDBUrl, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(recipe)
     })
-        .then(res => res.json())
+        .then(res=> res.json()) as Promise<ItemType>)
         .catch(err => console.log(err))
 }
 

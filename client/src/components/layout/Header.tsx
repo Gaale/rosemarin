@@ -2,10 +2,10 @@ import { Link, Path } from 'react-router-dom';
 import Rosemary from '../../images/rosemary.png';
 
 type Props = {
-	heading: String;
-	paragraph: String;
-	linkName: String;
-	linkUrl: Path;
+	heading: string;
+	paragraph: string;
+	linkName: string;
+	linkUrl: string;
 };
 
 function Header({ heading, paragraph, linkName, linkUrl }: Props) {

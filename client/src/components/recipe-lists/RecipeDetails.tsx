@@ -1,13 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  getMyShoppingList,
-  postItem,
-} from '../../Utils/apiDBServiceShoppingList';
+import { postItem } from '../../Utils/apiDBServiceShoppingList';
 
 import { GeneralRecipe } from '../../types/RecipeTypes';
-import { CustomId } from '../../types/CustomId';
 import { ItemType } from '../../types/ItemType';
 
 type Props = {
@@ -41,13 +37,13 @@ const RecipeDetails = ({ recipes, myRecipes, setItems }: Props) => {
   }, []);
 
   const addHandlerShoppingList = (data: ItemType) => {
-    const newItem = {
+    const newItem: ItemType = {
       name: data.name,
       quantity: data.quantity,
       unit: data.unit,
     };
     postItem(newItem)
-      .then((res: ItemType[]) => setItems((prev) => [...prev, res]))
+      .then((res) => setItems((prev: ItemType[]) => [...prev, res]))
       .catch((error) => console.log(error));
   };
 

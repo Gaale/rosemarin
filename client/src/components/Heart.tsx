@@ -77,12 +77,14 @@ const Heart = ({ recipe, setIds, ids }: Props) => {
 	};
 	return isFavorite ? (
 		<FontAwesomeIcon
+			data-testid="icon-fav"
 			onClick={isFavoriteHandler}
 			icon={faHeart as IconDefinition}
 			className="text-2xl self-center mr-3 link text-error cursor-pointer"
 		/>
 	) : (
 		<FontAwesomeIcon
+			data-testid="icon-no-fav"
 			onClick={isFavoriteHandler}
 			icon={faHeart as IconDefinition}
 			className="text-2xl self-center mr-3 link-secondary cursor-pointer"

@@ -36,7 +36,8 @@ test('button should be disabled if parameters invalid and enabled if they are', 
 
 test('form on submit should call function with parameters', () => {
 	const setIsAuthenticated = jest.fn();
-	const LoginRender = render(<LoginComponent setIsAuthenticated={setIsAuthenticated} />, {
+
+	render(<LoginComponent setIsAuthenticated={setIsAuthenticated} />, {
 		wrapper: MemoryRouter,
 	});
 
@@ -44,13 +45,12 @@ test('form on submit should call function with parameters', () => {
 	const passwordInput = screen.getByPlaceholderText(/Password/);
 	const buttonSubmit = screen.getByRole('button');
 
-	// const handleSubmitAccess = jest.spyOn(LoginComponent, 'handleSubmit');
-	// const LoginSpy = jest.spyOn(LoginComponent.prototype, 'handleSubmit');
+	const authenticateSpy = jest.spyOn(console, 'log');
 
 	userEvent.type(emailInput, 'email@email.com');
 	userEvent.type(passwordInput, '123');
 	userEvent.click(buttonSubmit);
 	// fireEvent.click(buttonSubmit);
 
-	expect(setIsAuthenticated).toBeCalled();
+	expect(authenticateSpy).toBeCalledWith({ email: 'email@email.com', password: '123' });
 });

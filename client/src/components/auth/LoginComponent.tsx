@@ -21,13 +21,15 @@ function LoginComponent({ setIsAuthenticated }: Props) {
 		setLoginState({ ...loginState, [e.target.id]: e.target.value });
 	};
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		authenticateUser();
-	};
+	// const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+	// 	event.preventDefault();
+	// 	authenticateUser();
+	// };
 
 	//Handle Login API Integration here
-	const authenticateUser = () => {
+	const authenticateUser = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		console.log(loginState);
 		apiUserService
 			.login(loginState)
 			.then((res) => {
@@ -47,7 +49,7 @@ function LoginComponent({ setIsAuthenticated }: Props) {
 	};
 
 	return (
-		<form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+		<form className="mt-8 space-y-6" onSubmit={authenticateUser}>
 			<div className="-space-y-px">
 				<Input
 					key={loginFields[0].id}

@@ -39,6 +39,7 @@ export class GeneralRecipe extends MyRecipe {
     this.thumbnail_url = 'string';
     this.instructions = []; //Change
   }
+  renditions?: { url?: string }[];
   name: string;
   thumbnail_url: string;
   instructions: Instruction[]; //Change

@@ -5,8 +5,8 @@ export class MyRecipe {
   constructor() {
     this.title = 'string';
 
-    this.Ingredients = [];
-    this.Instructions = [];
+    this.ingredients = [];
+    this.instructions = [];
     this.UserId = 0;
     this.id = 0;
     this.id_tasty = 0;
@@ -18,8 +18,8 @@ export class MyRecipe {
   img_url?: string;
   img_data?: string;
   description?: string;
-  Ingredients: Ingredient[];
-  Instructions: Instruction[];
+  ingredients: Ingredient[];
+  instructions: Instruction[];
   UserId: number;
   createdAt?: string;
   updatedAt?: string;

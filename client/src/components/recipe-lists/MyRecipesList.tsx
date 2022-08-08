@@ -4,7 +4,7 @@ import SearchForm from './SearchForm';
 import Recipe from './Recipe';
 import { getMyRecipes } from '../../Utils/apiDBService';
 import recipe from './Recipe';
-import { GeneralRecipe, MyRecipe, RecipeType } from '../../types/RecipeTypes';
+import { GeneralRecipe } from '../../types/RecipeTypes';
 import { CustomId } from '../../types/CustomId';
 type Props = {
 	myRecipes: GeneralRecipe[];

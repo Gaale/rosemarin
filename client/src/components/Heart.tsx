@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { faHeart } from '@fortawesome/fontawesome-free-solid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { deleteRecipe, getMyRecipes, postRecipe } from '../Utils/apiDBService';
-import { GeneralRecipe, MyRecipe, RecipeType } from '../types/RecipeTypes';
+import { GeneralRecipe, MyRecipe } from '../types/RecipeTypes';
 import { CustomId } from '../types/CustomId';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 

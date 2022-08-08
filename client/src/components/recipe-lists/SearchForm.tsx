@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { getRandomRecipe } from '../../Utils/apiService';
 import { options } from '../../data';
 import { useNavigate } from 'react-router-dom';
-import { GeneralRecipe, MyRecipe, RecipeType } from '../../types/RecipeTypes';
+import { GeneralRecipe, MyRecipe } from '../../types/RecipeTypes';
 
 type Props = {
 	setRecipes: (recipes: GeneralRecipe[]) => void;

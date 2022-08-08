@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Heart from '../Heart';
-import { GeneralRecipe, MyRecipe, RecipeType } from '../../types/RecipeTypes';
+import { GeneralRecipe } from '../../types/RecipeTypes';
 import { CustomId } from '../../types/CustomId';
 
 type Props = {

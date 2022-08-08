@@ -34,7 +34,7 @@ function Input({
 				{labelText}
 			</label>
 			<input
-				onChange={(e) => handleChange(e)}
+				onChange={handleChange}
 				value={value}
 				id={id}
 				name={name}

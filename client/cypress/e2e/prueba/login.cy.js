@@ -1,4 +1,4 @@
-describe('Login test', () => {
+describe('Login and logout test', () => {
   it('Should render the login page', () => {
     cy.visit('http://localhost:3000');
   });
@@ -15,5 +15,16 @@ describe('Login test', () => {
     cy.get('button').click();
 
     cy.url().should('include', '/home');
+  });
+  it('Should display logout message', () => {
+    cy.get('#logout').click();
+
+    cy.url().should('include', '/logout');
+  });
+
+  it('Should logout and go back to login page', () => {
+    cy.get('button:first').click();
+
+    cy.url().should('eq', 'http://localhost:3000/');
   });
 });

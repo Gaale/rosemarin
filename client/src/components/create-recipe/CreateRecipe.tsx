@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 import TopSection from '../layout/TopSection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Instruction from './Instruction';
 import Ingredient from './Ingredient';
 import { postRecipe } from '../../Utils/apiDBService';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 function CreateRecipe() {
 	const [ingredients, setIngredients] = useState(['1-ingredient']);
@@ -11,11 +12,13 @@ function CreateRecipe() {
 
 	const form = useRef(null);
 
-	const handleSubmit = (e) => {
+	// const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
+
 		let subInstructions = [];
 		let tmpIngredients = [];
-		const formData = new FormData(form.current);
+		const formData = new FormData(form.current!);
 
 		for (let [key, value] of formData.entries()) {
 			if (key.includes('instruction')) subInstructions.push({ text: value });
@@ -35,7 +38,7 @@ function CreateRecipe() {
 		}
 
 		tmpIngredients = tmpIngredients.reduce((o, i) => {
-			if (!o.find((v) => v.name == i.name)) {
+			if (!o.find((v: { name: string }) => v.name == i.name)) {
 				o.push(i);
 			}
 			return o;
@@ -43,12 +46,20 @@ function CreateRecipe() {
 
 		tmpIngredients.shift();
 
+		const target = e.target as typeof e.target & {
+			title: { value: string };
+			description: { value: string };
+			url: { value: string };
+			img_alt_text: { value: string };
+		};
+
 		const newRecipe = {
-			title: e.target.title.value,
-			description: e.target.description.value,
-			img_url: e.target.url.value || null,
+			//title: e.currentTarget.title.valueOf(),
+			title: target.title.value,
+			description: target.description.value,
+			img_url: target.url.value || null,
 			// files: e.target[7].files[0] || null,
-			img_alt_text: e.target.title.value,
+			img_alt_text: target.title.value,
 			ingredients: tmpIngredients,
 			instructions: subInstructions,
 		};
@@ -57,10 +68,9 @@ function CreateRecipe() {
 			.then((res) => console.log(res))
 			.catch((error) => console.log(error));
 
-		e.target.title.value = '';
-		e.target.description.value = '';
-		e.target.url.value = '';
-		e.target.title = '';
+		target.title.value = '';
+		target.description.value = '';
+		target.url.value = '';
 	};
 
 	const addHandlerInstruction = () => {
@@ -128,12 +138,12 @@ function CreateRecipe() {
 					<label className="label justify-start mr-10">
 						Ingredients
 						<FontAwesomeIcon
-							icon="fa-solid fa-plus"
+							icon={'fa-solid fa-plus' as IconProp}
 							className="text-warning transition-all hover:text-2xl ml-10"
 							onClick={addHandlerIngredient}
 						/>
 						<FontAwesomeIcon
-							icon="fa-solid fa-minus"
+							icon={'fa-solid fa-minus' as IconProp}
 							className="text-warning transition-all hover:text-2xl cursor-pointer ml-10"
 							onClick={delHandlerIngredient}
 						/>
@@ -147,12 +157,12 @@ function CreateRecipe() {
 					<label className="label justify-start mr-10">
 						Instructions
 						<FontAwesomeIcon
-							icon="fa-solid fa-plus"
+							icon={'fa-solid fa-plus' as IconProp}
 							className="text-warning transition-all hover:text-2xl cursor-pointer ml-10"
 							onClick={addHandlerInstruction}
 						/>
 						<FontAwesomeIcon
-							icon="fa-solid fa-minus"
+							icon={'fa-solid fa-minus' as IconProp}
 							className="text-warning transition-all hover:text-2xl cursor-pointer ml-10"
 							onClick={delHandlerInstruction}
 						/>

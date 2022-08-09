@@ -87,7 +87,6 @@ it('Should have search bar and trigger a search', async () => {
   );
 
   const searchForm = screen.getByPlaceholderText('Search by category');
-  //   const vegetarian = screen.getByText('vegetarian');
   console.log(screen.getByText('Search'));
 
   const spy = jest.spyOn(console, 'log');
@@ -95,8 +94,5 @@ it('Should have search bar and trigger a search', async () => {
     target: { value: 'Vegetarian' },
   });
   userEvent.click(screen.getByText('Search'));
-  //   const elements = screen.getAllByText('string');
   expect(spy).toHaveBeenCalled();
-
-  // userEvent.click;
 });

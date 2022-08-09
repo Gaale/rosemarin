@@ -46,20 +46,7 @@ export const getRandomRecipe = async (tag) => {
           total_time: recipe.total_time_minutes,
           ingredients: formattedIngredients,
           renditions: recipe.renditions,
-          // ingredients: recipe.sections.map((el) => {
-          // 	// console.log('ELEMENT INSIDE MAP', el);
-          // 	let res = el.components.map((comp) => {
-          // 		// if
-          // 		let name = comp.ingredient.name;
-          // 		let unit = comp.measurements[0]?.unit.name;
-          // 		let quantity = comp.measurements[0]?.quantity || null;
-          // 		return { name, unit, quantity };
-          // 	});
 
-          // 	// {NAME / UNIT /QUIANTITY}
-          // 	return res;
-          // 	// return final.flat();
-          // }),
           instructions: recipe.instructions.map((el) => {
             let text = el.display_text;
             return { text };

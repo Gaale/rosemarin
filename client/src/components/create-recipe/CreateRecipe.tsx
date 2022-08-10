@@ -118,6 +118,7 @@ function CreateRecipe() {
 				<div>
 					<label className="label">Title</label>
 					<input
+						id="title"
 						type="text"
 						name="title"
 						placeholder="Type here title of your recipe..."
@@ -128,6 +129,7 @@ function CreateRecipe() {
 				<div>
 					<label className="label">Description</label>
 					<textarea
+						id="description"
 						name="description"
 						placeholder="Type here description of your recipe..."
 						className="textarea input-bordered w-full hover:bg-slate-50 cursor-pointer"
@@ -138,11 +140,13 @@ function CreateRecipe() {
 					<label className="label justify-start mr-10">
 						Ingredients
 						<FontAwesomeIcon
+							id="addIngredient"
 							icon={'fa-solid fa-plus' as IconProp}
 							className="text-warning transition-all hover:text-2xl ml-10"
 							onClick={addHandlerIngredient}
 						/>
 						<FontAwesomeIcon
+							id="removeIngredient"
 							icon={'fa-solid fa-minus' as IconProp}
 							className="text-warning transition-all hover:text-2xl cursor-pointer ml-10"
 							onClick={delHandlerIngredient}
@@ -157,11 +161,13 @@ function CreateRecipe() {
 					<label className="label justify-start mr-10">
 						Instructions
 						<FontAwesomeIcon
+							id="addInstruction"
 							icon={'fa-solid fa-plus' as IconProp}
 							className="text-warning transition-all hover:text-2xl cursor-pointer ml-10"
 							onClick={addHandlerInstruction}
 						/>
 						<FontAwesomeIcon
+							id="removeInstruction"
 							icon={'fa-solid fa-minus' as IconProp}
 							className="text-warning transition-all hover:text-2xl cursor-pointer ml-10"
 							onClick={delHandlerInstruction}
@@ -175,6 +181,7 @@ function CreateRecipe() {
 				<div>
 					<label className="label">URL of image</label>
 					<input
+						id="url"
 						type="input"
 						name="url"
 						placeholder="Type here URL if needed.."

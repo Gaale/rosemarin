@@ -14,7 +14,7 @@ apiUserService.register = (user) => {
 
 	return fetch(`${BASE_URL}/register`, options)
 		.then((response) => {
-			if (response.ok) return response.json();
+			if (response) return response;
 		})
 		.catch((err) => console.error(err));
 };
@@ -31,13 +31,7 @@ apiUserService.login = (user) => {
 
 	return fetch(`${BASE_URL}/login`, options)
 		.then((response) => {
-			if (response.status < 400) {
-				return response.text().then((ok) => {
-					return ok;
-				});
-			} else {
-				return false;
-			}
+			if (response.ok) return response.json();
 		})
 		.catch((err) => console.error(err));
 };

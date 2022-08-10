@@ -13,7 +13,6 @@ describe('Login and logout test', () => {
 	it('Should display home page', () => {
 		cy.get('#password').clear().type('a');
 		cy.get('button').click();
-
 		cy.url().should('include', '/home');
 	});
 	it('Should display logout message', () => {
@@ -26,22 +25,6 @@ describe('Login and logout test', () => {
 		cy.get('button:first').click();
 
 		cy.url().should('eq', 'http://localhost:3000/');
-	});
-});
-
-describe('Sign up Test', () => {
-	it('Should render the signup page', () => {
-		cy.visit('http://localhost:3000/signup');
-	});
-	it('Should type name, email, password and confirm password', () => {
-		cy.get('#name').type('New User').should('have.value', 'New User');
-		cy.get('#email').type('testEmail@mail.com').should('have.value', 'testEmail@mail.com');
-		cy.get('#password').type('123').should('have.value', '123');
-		cy.get('#confirm-password').type('123').should('have.value', '123');
-	});
-	it('Should display home page', () => {
-		cy.get('button').click();
-		cy.url().should('include', '/home');
 	});
 });
 

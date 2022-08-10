@@ -39,23 +39,10 @@ describe('Sign up Test', () => {
 		cy.get('#password').type('123').should('have.value', '123');
 		cy.get('#confirm-password').type('123').should('have.value', '123');
 	});
-	// it('Should display Incorrect login', () => {
-	// 	cy.get('button').click();
-	// 	expect(cy.contains('Incorrect login'));
-	// });
-	// it('Should display home page', () => {
-	// 	cy.get('#password').clear().type('a');
-	// 	cy.get('button').click();
-	// 	cy.url().should('include', '/home');
-	// });
-	// it('Should display logout message', () => {
-	// 	cy.get('#logout').click();
-	// 	cy.url().should('include', '/logout');
-	// });
-	// it('Should logout and go back to login page', () => {
-	// 	cy.get('button:first').click();
-	// 	cy.url().should('eq', 'http://localhost:3000/');
-	// });
+	it('Should display home page', () => {
+		cy.get('button').click();
+		cy.url().should('include', '/home');
+	});
 });
 
 describe('Search component test', () => {

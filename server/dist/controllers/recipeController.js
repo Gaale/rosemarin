@@ -52,9 +52,7 @@ const createRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     catch (err) {
         console.log(err);
-        res
-            .status(500)
-            .send({ message: 'Due to error recipe has not been created' });
+        res.status(500).send({ message: 'Due to error recipe has not been created' });
     }
 });
 // const updateRecipe = async (
@@ -116,9 +114,7 @@ const removeRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     catch (err) {
         console.log(err);
-        res
-            .status(500)
-            .send({ message: 'Due to error recipe has not been created' });
+        res.status(500).send({ message: 'Due to error recipe has not been created' });
     }
 });
 const getAllRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -133,9 +129,7 @@ const getAllRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     catch (err) {
         console.log(err);
-        res
-            .status(500)
-            .send({ message: 'Due to error recipes have not been received' });
+        res.status(500).send({ message: 'Due to error recipes have not been received' });
     }
 });
 module.exports = { createRecipe, removeRecipe, getAllRecipes };

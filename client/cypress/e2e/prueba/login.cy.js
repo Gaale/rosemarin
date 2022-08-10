@@ -28,3 +28,20 @@ describe('Login and logout test', () => {
     cy.url().should('eq', 'http://localhost:3000/');
   });
 });
+
+describe('Search component test', () => {
+  it('Should render the home page', () => {
+    cy.visit('http://localhost:3000');
+    cy.get('#email').type('a@a.com');
+    cy.get('#password').clear().type('a');
+    cy.get('button').click();
+  });
+
+  it('Should select vegetarian on options', () => {
+    cy.get('select').select('Vegetarian');
+  });
+
+  it('Should submit options and update home results', () => {
+    cy.get('form').submit();
+  });
+});

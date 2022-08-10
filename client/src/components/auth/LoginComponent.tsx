@@ -29,10 +29,10 @@ function LoginComponent({ setIsAuthenticated }: Props) {
 	//Handle Login API Integration here
 	const authenticateUser = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log(loginState);
 		apiUserService
 			.login(loginState)
 			.then((res) => {
+				console.log(res);
 				if (!res) {
 					setErrorMessage('Incorrect login information.');
 				} else {

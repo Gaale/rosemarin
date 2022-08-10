@@ -31,7 +31,8 @@ apiUserService.login = (user) => {
 
 	return fetch(`${BASE_URL}/login`, options)
 		.then((response) => {
-			if (response.ok) return response;
+			console.log(response);
+			if (response.status < 400) return response;
 		})
 		.catch((err) => console.error(err));
 };
